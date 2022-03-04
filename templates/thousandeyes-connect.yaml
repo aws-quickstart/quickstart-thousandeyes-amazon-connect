@@ -1,0 +1,775 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+Description: ThousandEyes metrics service for Amazon Connect client.
+Resources:
+  LambdaCodeBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+        - ServerSideEncryptionByDefault:
+            SSEAlgorithm: AES256
+  LambdaCodeBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket:
+        Ref: LambdaCodeBucket
+      PolicyDocument:
+        Statement:
+        - Action: s3:*
+          Effect: Deny
+          Principal: "*"
+          Resource:
+          - Fn::Join:
+            - ''
+            - - 'arn:'
+              - Ref: AWS::Partition
+              - ":s3:::"
+              - Ref: LambdaCodeBucket
+              - "/*"
+          - Fn::Join:
+            - ''
+            - - 'arn:'
+              - Ref: AWS::Partition
+              - ":s3:::"
+              - Ref: LambdaCodeBucket
+          Condition:
+            Bool:
+              aws:SecureTransport: false
+  HttpLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: "/aws/lambda/te-connect-v1-http"
+  NetworkLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: "/aws/lambda/te-connect-v1-network"
+  ConnectionLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: "/aws/lambda/te-connect-v1-connection"
+  AgentinfoLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: "/aws/lambda/te-connect-v1-agentinfo"
+  StatusLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: "/aws/lambda/te-connect-v1-status"
+  IamRoleLambdaExecution:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+            - lambda.amazonaws.com
+          Action:
+          - sts:AssumeRole
+      Policies:
+      - PolicyName:
+          Fn::Join:
+          - "-"
+          - - te-connect
+            - v1
+            - lambda
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+            - logs:CreateLogStream
+            - logs:CreateLogGroup
+            Resource:
+            - Fn::Sub: arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/te-connect-v1*:*
+          - Effect: Allow
+            Action:
+            - logs:PutLogEvents
+            Resource:
+            - Fn::Sub: arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/te-connect-v1*:*:*
+      Path: "/"
+      RoleName:
+        Fn::Join:
+        - "-"
+        - - te-connect
+          - v1
+          - Ref: AWS::Region
+          - lambdaRole
+  HttpLambdaFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        S3Bucket:
+          Ref: LambdaCodeBucket
+        S3Key: thousandeyes-connect.zip
+      Handler: handler.http
+      Runtime: nodejs12.x
+      FunctionName: te-connect-v1-http
+      MemorySize: 1024
+      Timeout: 6
+      Environment:
+        Variables:
+          TE_USER:
+            Ref: ThousandEyesUser
+          TE_TOKEN:
+            Ref: ThousandEyesUserToken
+      Role:
+        Fn::GetAtt:
+        - IamRoleLambdaExecution
+        - Arn
+    DependsOn:
+    - HttpLogGroup
+  NetworkLambdaFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        S3Bucket:
+          Ref: LambdaCodeBucket
+        S3Key: thousandeyes-connect.zip
+      Handler: handler.network
+      Runtime: nodejs12.x
+      FunctionName: te-connect-v1-network
+      MemorySize: 1024
+      Timeout: 6
+      Environment:
+        Variables:
+          TE_USER:
+            Ref: ThousandEyesUser
+          TE_TOKEN:
+            Ref: ThousandEyesUserToken
+      Role:
+        Fn::GetAtt:
+        - IamRoleLambdaExecution
+        - Arn
+    DependsOn:
+    - NetworkLogGroup
+  ConnectionLambdaFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        S3Bucket:
+          Ref: LambdaCodeBucket
+        S3Key: thousandeyes-connect.zip
+      Handler: handler.connection
+      Runtime: nodejs12.x
+      FunctionName: te-connect-v1-connection
+      MemorySize: 1024
+      Timeout: 6
+      Environment:
+        Variables:
+          TE_USER:
+            Ref: ThousandEyesUser
+          TE_TOKEN:
+            Ref: ThousandEyesUserToken
+      Role:
+        Fn::GetAtt:
+        - IamRoleLambdaExecution
+        - Arn
+    DependsOn:
+    - ConnectionLogGroup
+  AgentinfoLambdaFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        S3Bucket:
+          Ref: LambdaCodeBucket
+        S3Key: thousandeyes-connect.zip
+      Handler: handler.agentinfo
+      Runtime: nodejs12.x
+      FunctionName: te-connect-v1-agentinfo
+      MemorySize: 1024
+      Timeout: 6
+      Environment:
+        Variables:
+          TE_USER:
+            Ref: ThousandEyesUser
+          TE_TOKEN:
+            Ref: ThousandEyesUserToken
+      Role:
+        Fn::GetAtt:
+        - IamRoleLambdaExecution
+        - Arn
+    DependsOn:
+    - AgentinfoLogGroup
+  StatusLambdaFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Code:
+        S3Bucket:
+          Ref: LambdaCodeBucket
+        S3Key: thousandeyes-connect.zip
+      Handler: handler.status
+      Runtime: nodejs12.x
+      FunctionName: te-connect-v1-status
+      MemorySize: 1024
+      Timeout: 6
+      Role:
+        Fn::GetAtt:
+        - IamRoleLambdaExecution
+        - Arn
+    DependsOn:
+    - StatusLogGroup
+  HttpLambdaVersiontTDk6sdYTZXNVKs6Peh5eYsweBNAzGx6qRlXnJkMM:
+    Type: AWS::Lambda::Version
+    DeletionPolicy: Retain
+    Properties:
+      FunctionName:
+        Ref: HttpLambdaFunction
+      CodeSha256: E7mo0d+zuj65jn/rQ6JDSOK+I20rZenzraj3kR4znr8=
+  NetworkLambdaVersionfLvewMyOVkCrcSZix84CROaWf64YGziPv3wruP1XWo:
+    Type: AWS::Lambda::Version
+    DeletionPolicy: Retain
+    Properties:
+      FunctionName:
+        Ref: NetworkLambdaFunction
+      CodeSha256: E7mo0d+zuj65jn/rQ6JDSOK+I20rZenzraj3kR4znr8=
+  ConnectionLambdaVersionKiPSspnL0MTOUnVI7WHXl8tFRYa0Z0TSQ008nuUi9w:
+    Type: AWS::Lambda::Version
+    DeletionPolicy: Retain
+    Properties:
+      FunctionName:
+        Ref: ConnectionLambdaFunction
+      CodeSha256: E7mo0d+zuj65jn/rQ6JDSOK+I20rZenzraj3kR4znr8=
+  AgentinfoLambdaVersionbHmfxRrCf1Fr4ZUuRQKJYdyZrfwObU5JZlEUHPASA:
+    Type: AWS::Lambda::Version
+    DeletionPolicy: Retain
+    Properties:
+      FunctionName:
+        Ref: AgentinfoLambdaFunction
+      CodeSha256: E7mo0d+zuj65jn/rQ6JDSOK+I20rZenzraj3kR4znr8=
+  StatusLambdaVersionDzNt9sBmXxSsOAQrhEl96zlVlZsYvKQ0BgeF8HCoR8:
+    Type: AWS::Lambda::Version
+    DeletionPolicy: Retain
+    Properties:
+      FunctionName:
+        Ref: StatusLambdaFunction
+      CodeSha256: E7mo0d+zuj65jn/rQ6JDSOK+I20rZenzraj3kR4znr8=
+  ApiGatewayRestApi:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      Name: v1-te-connect
+      EndpointConfiguration:
+        Types:
+        - EDGE
+      Policy: ''
+  ApiGatewayResourceHttp:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      ParentId:
+        Fn::GetAtt:
+        - ApiGatewayRestApi
+        - RootResourceId
+      PathPart: http
+      RestApiId:
+        Ref: ApiGatewayRestApi
+  ApiGatewayResourceNetwork:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      ParentId:
+        Fn::GetAtt:
+        - ApiGatewayRestApi
+        - RootResourceId
+      PathPart: network
+      RestApiId:
+        Ref: ApiGatewayRestApi
+  ApiGatewayResourceConnection:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      ParentId:
+        Fn::GetAtt:
+        - ApiGatewayRestApi
+        - RootResourceId
+      PathPart: connection
+      RestApiId:
+        Ref: ApiGatewayRestApi
+  ApiGatewayResourceAgentinfo:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      ParentId:
+        Fn::GetAtt:
+        - ApiGatewayRestApi
+        - RootResourceId
+      PathPart: agentinfo
+      RestApiId:
+        Ref: ApiGatewayRestApi
+  ApiGatewayResourceStatus:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      ParentId:
+        Fn::GetAtt:
+        - ApiGatewayRestApi
+        - RootResourceId
+      PathPart: status
+      RestApiId:
+        Ref: ApiGatewayRestApi
+  ApiGatewayMethodHttpOptions:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      AuthorizationType: NONE
+      HttpMethod: OPTIONS
+      MethodResponses:
+      - StatusCode: '200'
+        ResponseParameters:
+          method.response.header.Access-Control-Allow-Origin: true
+          method.response.header.Access-Control-Allow-Headers: true
+          method.response.header.Access-Control-Allow-Methods: true
+        ResponseModels: {}
+      RequestParameters: {}
+      Integration:
+        Type: MOCK
+        RequestTemplates:
+          application/json: "{statusCode:200}"
+        ContentHandling: CONVERT_TO_TEXT
+        IntegrationResponses:
+        - StatusCode: '200'
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Origin: "'*'"
+            method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'"
+            method.response.header.Access-Control-Allow-Methods: "'OPTIONS,GET'"
+          ResponseTemplates:
+            application/json: ''
+      ResourceId:
+        Ref: ApiGatewayResourceHttp
+      RestApiId:
+        Ref: ApiGatewayRestApi
+  ApiGatewayMethodNetworkOptions:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      AuthorizationType: NONE
+      HttpMethod: OPTIONS
+      MethodResponses:
+      - StatusCode: '200'
+        ResponseParameters:
+          method.response.header.Access-Control-Allow-Origin: true
+          method.response.header.Access-Control-Allow-Headers: true
+          method.response.header.Access-Control-Allow-Methods: true
+        ResponseModels: {}
+      RequestParameters: {}
+      Integration:
+        Type: MOCK
+        RequestTemplates:
+          application/json: "{statusCode:200}"
+        ContentHandling: CONVERT_TO_TEXT
+        IntegrationResponses:
+        - StatusCode: '200'
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Origin: "'*'"
+            method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'"
+            method.response.header.Access-Control-Allow-Methods: "'OPTIONS,GET'"
+          ResponseTemplates:
+            application/json: ''
+      ResourceId:
+        Ref: ApiGatewayResourceNetwork
+      RestApiId:
+        Ref: ApiGatewayRestApi
+  ApiGatewayMethodConnectionOptions:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      AuthorizationType: NONE
+      HttpMethod: OPTIONS
+      MethodResponses:
+      - StatusCode: '200'
+        ResponseParameters:
+          method.response.header.Access-Control-Allow-Origin: true
+          method.response.header.Access-Control-Allow-Headers: true
+          method.response.header.Access-Control-Allow-Methods: true
+        ResponseModels: {}
+      RequestParameters: {}
+      Integration:
+        Type: MOCK
+        RequestTemplates:
+          application/json: "{statusCode:200}"
+        ContentHandling: CONVERT_TO_TEXT
+        IntegrationResponses:
+        - StatusCode: '200'
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Origin: "'*'"
+            method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'"
+            method.response.header.Access-Control-Allow-Methods: "'OPTIONS,GET'"
+          ResponseTemplates:
+            application/json: ''
+      ResourceId:
+        Ref: ApiGatewayResourceConnection
+      RestApiId:
+        Ref: ApiGatewayRestApi
+  ApiGatewayMethodAgentinfoOptions:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      AuthorizationType: NONE
+      HttpMethod: OPTIONS
+      MethodResponses:
+      - StatusCode: '200'
+        ResponseParameters:
+          method.response.header.Access-Control-Allow-Origin: true
+          method.response.header.Access-Control-Allow-Headers: true
+          method.response.header.Access-Control-Allow-Methods: true
+        ResponseModels: {}
+      RequestParameters: {}
+      Integration:
+        Type: MOCK
+        RequestTemplates:
+          application/json: "{statusCode:200}"
+        ContentHandling: CONVERT_TO_TEXT
+        IntegrationResponses:
+        - StatusCode: '200'
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Origin: "'*'"
+            method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'"
+            method.response.header.Access-Control-Allow-Methods: "'OPTIONS,GET'"
+          ResponseTemplates:
+            application/json: ''
+      ResourceId:
+        Ref: ApiGatewayResourceAgentinfo
+      RestApiId:
+        Ref: ApiGatewayRestApi
+  ApiGatewayMethodStatusOptions:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      AuthorizationType: NONE
+      HttpMethod: OPTIONS
+      MethodResponses:
+      - StatusCode: '200'
+        ResponseParameters:
+          method.response.header.Access-Control-Allow-Origin: true
+          method.response.header.Access-Control-Allow-Headers: true
+          method.response.header.Access-Control-Allow-Methods: true
+        ResponseModels: {}
+      RequestParameters: {}
+      Integration:
+        Type: MOCK
+        RequestTemplates:
+          application/json: "{statusCode:200}"
+        ContentHandling: CONVERT_TO_TEXT
+        IntegrationResponses:
+        - StatusCode: '200'
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Origin: "'*'"
+            method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'"
+            method.response.header.Access-Control-Allow-Methods: "'OPTIONS,GET'"
+          ResponseTemplates:
+            application/json: ''
+      ResourceId:
+        Ref: ApiGatewayResourceStatus
+      RestApiId:
+        Ref: ApiGatewayRestApi
+  ApiGatewayMethodHttpGet:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: GET
+      RequestParameters: {}
+      ResourceId:
+        Ref: ApiGatewayResourceHttp
+      RestApiId:
+        Ref: ApiGatewayRestApi
+      ApiKeyRequired: false
+      AuthorizationType: NONE
+      Integration:
+        IntegrationHttpMethod: POST
+        Type: AWS_PROXY
+        Uri:
+          Fn::Join:
+          - ''
+          - - 'arn:'
+            - Ref: AWS::Partition
+            - ":apigateway:"
+            - Ref: AWS::Region
+            - ":lambda:path/2015-03-31/functions/"
+            - Fn::GetAtt:
+              - HttpLambdaFunction
+              - Arn
+            - "/invocations"
+      MethodResponses: []
+  ApiGatewayMethodNetworkGet:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: GET
+      RequestParameters: {}
+      ResourceId:
+        Ref: ApiGatewayResourceNetwork
+      RestApiId:
+        Ref: ApiGatewayRestApi
+      ApiKeyRequired: false
+      AuthorizationType: NONE
+      Integration:
+        IntegrationHttpMethod: POST
+        Type: AWS_PROXY
+        Uri:
+          Fn::Join:
+          - ''
+          - - 'arn:'
+            - Ref: AWS::Partition
+            - ":apigateway:"
+            - Ref: AWS::Region
+            - ":lambda:path/2015-03-31/functions/"
+            - Fn::GetAtt:
+              - NetworkLambdaFunction
+              - Arn
+            - "/invocations"
+      MethodResponses: []
+  ApiGatewayMethodConnectionGet:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: GET
+      RequestParameters: {}
+      ResourceId:
+        Ref: ApiGatewayResourceConnection
+      RestApiId:
+        Ref: ApiGatewayRestApi
+      ApiKeyRequired: false
+      AuthorizationType: NONE
+      Integration:
+        IntegrationHttpMethod: POST
+        Type: AWS_PROXY
+        Uri:
+          Fn::Join:
+          - ''
+          - - 'arn:'
+            - Ref: AWS::Partition
+            - ":apigateway:"
+            - Ref: AWS::Region
+            - ":lambda:path/2015-03-31/functions/"
+            - Fn::GetAtt:
+              - ConnectionLambdaFunction
+              - Arn
+            - "/invocations"
+      MethodResponses: []
+  ApiGatewayMethodAgentinfoGet:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: GET
+      RequestParameters: {}
+      ResourceId:
+        Ref: ApiGatewayResourceAgentinfo
+      RestApiId:
+        Ref: ApiGatewayRestApi
+      ApiKeyRequired: false
+      AuthorizationType: NONE
+      Integration:
+        IntegrationHttpMethod: POST
+        Type: AWS_PROXY
+        Uri:
+          Fn::Join:
+          - ''
+          - - 'arn:'
+            - Ref: AWS::Partition
+            - ":apigateway:"
+            - Ref: AWS::Region
+            - ":lambda:path/2015-03-31/functions/"
+            - Fn::GetAtt:
+              - AgentinfoLambdaFunction
+              - Arn
+            - "/invocations"
+      MethodResponses: []
+  ApiGatewayMethodStatusGet:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: GET
+      RequestParameters: {}
+      ResourceId:
+        Ref: ApiGatewayResourceStatus
+      RestApiId:
+        Ref: ApiGatewayRestApi
+      ApiKeyRequired: false
+      AuthorizationType: NONE
+      Integration:
+        IntegrationHttpMethod: POST
+        Type: AWS_PROXY
+        Uri:
+          Fn::Join:
+          - ''
+          - - 'arn:'
+            - Ref: AWS::Partition
+            - ":apigateway:"
+            - Ref: AWS::Region
+            - ":lambda:path/2015-03-31/functions/"
+            - Fn::GetAtt:
+              - StatusLambdaFunction
+              - Arn
+            - "/invocations"
+      MethodResponses: []
+  ApiGatewayDeployment1637276408451:
+    Type: AWS::ApiGateway::Deployment
+    Properties:
+      RestApiId:
+        Ref: ApiGatewayRestApi
+      StageName: v1
+    DependsOn:
+    - ApiGatewayMethodHttpOptions
+    - ApiGatewayMethodNetworkOptions
+    - ApiGatewayMethodConnectionOptions
+    - ApiGatewayMethodAgentinfoOptions
+    - ApiGatewayMethodStatusOptions
+    - ApiGatewayMethodHttpGet
+    - ApiGatewayMethodNetworkGet
+    - ApiGatewayMethodConnectionGet
+    - ApiGatewayMethodAgentinfoGet
+    - ApiGatewayMethodStatusGet
+  HttpLambdaPermissionApiGateway:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName:
+        Fn::GetAtt:
+        - HttpLambdaFunction
+        - Arn
+      Action: lambda:InvokeFunction
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+        - ''
+        - - 'arn:'
+          - Ref: AWS::Partition
+          - ":execute-api:"
+          - Ref: AWS::Region
+          - ":"
+          - Ref: AWS::AccountId
+          - ":"
+          - Ref: ApiGatewayRestApi
+          - "/*/*"
+  NetworkLambdaPermissionApiGateway:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName:
+        Fn::GetAtt:
+        - NetworkLambdaFunction
+        - Arn
+      Action: lambda:InvokeFunction
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+        - ''
+        - - 'arn:'
+          - Ref: AWS::Partition
+          - ":execute-api:"
+          - Ref: AWS::Region
+          - ":"
+          - Ref: AWS::AccountId
+          - ":"
+          - Ref: ApiGatewayRestApi
+          - "/*/*"
+  ConnectionLambdaPermissionApiGateway:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName:
+        Fn::GetAtt:
+        - ConnectionLambdaFunction
+        - Arn
+      Action: lambda:InvokeFunction
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+        - ''
+        - - 'arn:'
+          - Ref: AWS::Partition
+          - ":execute-api:"
+          - Ref: AWS::Region
+          - ":"
+          - Ref: AWS::AccountId
+          - ":"
+          - Ref: ApiGatewayRestApi
+          - "/*/*"
+  AgentinfoLambdaPermissionApiGateway:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName:
+        Fn::GetAtt:
+        - AgentinfoLambdaFunction
+        - Arn
+      Action: lambda:InvokeFunction
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+        - ''
+        - - 'arn:'
+          - Ref: AWS::Partition
+          - ":execute-api:"
+          - Ref: AWS::Region
+          - ":"
+          - Ref: AWS::AccountId
+          - ":"
+          - Ref: ApiGatewayRestApi
+          - "/*/*"
+  StatusLambdaPermissionApiGateway:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName:
+        Fn::GetAtt:
+        - StatusLambdaFunction
+        - Arn
+      Action: lambda:InvokeFunction
+      Principal: apigateway.amazonaws.com
+      SourceArn:
+        Fn::Join:
+        - ''
+        - - 'arn:'
+          - Ref: AWS::Partition
+          - ":execute-api:"
+          - Ref: AWS::Region
+          - ":"
+          - Ref: AWS::AccountId
+          - ":"
+          - Ref: ApiGatewayRestApi
+          - "/*/*"
+Outputs:
+  LambdaCodeBucketName:
+    Value:
+      Ref: LambdaCodeBucket
+    Export:
+      Name: te-connect-v1-LambdaCodeBucketName
+  HttpLambdaFunctionQualifiedArn:
+    Description: Current Lambda function version
+    Value:
+      Ref: HttpLambdaVersiontTDk6sdYTZXNVKs6Peh5eYsweBNAzGx6qRlXnJkMM
+    Export:
+      Name: te-connect-v1-HttpLambdaFunctionQualifiedArn
+  NetworkLambdaFunctionQualifiedArn:
+    Description: Current Lambda function version
+    Value:
+      Ref: NetworkLambdaVersionfLvewMyOVkCrcSZix84CROaWf64YGziPv3wruP1XWo
+    Export:
+      Name: te-connect-v1-NetworkLambdaFunctionQualifiedArn
+  ConnectionLambdaFunctionQualifiedArn:
+    Description: Current Lambda function version
+    Value:
+      Ref: ConnectionLambdaVersionKiPSspnL0MTOUnVI7WHXl8tFRYa0Z0TSQ008nuUi9w
+    Export:
+      Name: te-connect-v1-ConnectionLambdaFunctionQualifiedArn
+  AgentinfoLambdaFunctionQualifiedArn:
+    Description: Current Lambda function version
+    Value:
+      Ref: AgentinfoLambdaVersionbHmfxRrCf1Fr4ZUuRQKJYdyZrfwObU5JZlEUHPASA
+    Export:
+      Name: te-connect-v1-AgentinfoLambdaFunctionQualifiedArn
+  StatusLambdaFunctionQualifiedArn:
+    Description: Current Lambda function version
+    Value:
+      Ref: StatusLambdaVersionDzNt9sBmXxSsOAQrhEl96zlVlZsYvKQ0BgeF8HCoR8
+    Export:
+      Name: te-connect-v1-StatusLambdaFunctionQualifiedArn
+  ServiceEndpoint:
+    Description: URL of the service endpoint
+    Value:
+      Fn::Join:
+      - ''
+      - - https://
+        - Ref: ApiGatewayRestApi
+        - ".execute-api."
+        - Ref: AWS::Region
+        - "."
+        - Ref: AWS::URLSuffix
+        - "/v1"
+    Export:
+      Name: te-connect-v1-ServiceEndpoint
+Parameters:
+  ThousandEyesUser:
+    Description: ThousandEyes user email
+    Type: String
+  ThousandEyesUserToken:
+    Description: ThousandEyes user API token
+    Type: String
+    MinLength: 32
+    MaxLength: 32
+    AllowedPattern: "[A-Za-z0-9]*"
+    NoEcho: true
+
