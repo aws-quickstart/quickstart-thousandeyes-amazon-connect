@@ -1,4 +1,4 @@
-This Quick Start deploys {partner-product-name} on the AWS Cloud. If you are unfamiliar with AWS Quick Starts, refer to the https://fwd.aws/rA69w?[AWS Quick Start General Information Guide^].
+This Quick Start deploys ThousandEyes' Amazon Connect Last Mile Audio on the AWS Cloud. If you are unfamiliar with AWS Quick Starts, refer to the https://fwd.aws/rA69w?[AWS Quick Start General Information Guide^].
 
 // For advanced information about the product that this Quick Start deploys, refer to the https://{quickstart-github-org}.github.io/{quickstart-project-name}/operational/index.html[Operational Guide^].
 
