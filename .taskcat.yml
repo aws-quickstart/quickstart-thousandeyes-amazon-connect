@@ -14,8 +14,8 @@ tests:
       QSS3BucketName:  $[taskcat_autobucket]
       QSS3BucketRegion: $[taskcat_current_region]
       QSS3KeyPrefix: quickstart-thousandeyes-amazon-connect/ 
-      ThousandEyesUserToken: override
-      ThousandEyesUser: override
+      ThousandEyesUserToken: W234dsfgGF53FFDDEghkokfdiu756jn5
+      ThousandEyesUser: hashlock@cisco.com
     regions:
     # - af-south-1      # Africa (Cape Town)
     # - ap-east-1       # Asia Pacific (Hong Kong)
