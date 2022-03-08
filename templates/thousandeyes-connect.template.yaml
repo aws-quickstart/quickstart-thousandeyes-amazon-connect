@@ -2,43 +2,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: ThousandEyes metrics service for Amazon Connect client.
 Resources:
-<<<<<<< HEAD
-=======
-  LambdaCodeBucket:
-    Type: AWS::S3::Bucket
-    Properties:
-      BucketEncryption:
-        ServerSideEncryptionConfiguration:
-        - ServerSideEncryptionByDefault:
-            SSEAlgorithm: AES256
-  LambdaCodeBucketPolicy:
-    Type: AWS::S3::BucketPolicy
-    Properties:
-      Bucket:
-        Ref: LambdaCodeBucket
-      PolicyDocument:
-        Statement:
-        - Action: s3:*
-          Effect: Deny
-          Principal: "*"
-          Resource:
-          - Fn::Join:
-            - ''
-            - - 'arn:'
-              - Ref: AWS::Partition
-              - ":s3:::"
-              - Ref: LambdaCodeBucket
-              - "/*"
-          - Fn::Join:
-            - ''
-            - - 'arn:'
-              - Ref: AWS::Partition
-              - ":s3:::"
-              - Ref: LambdaCodeBucket
-          Condition:
-            Bool:
-              aws:SecureTransport: false
->>>>>>> e1ee10d45c42010c108ae3f11c7445eaf41228eb
   HttpLogGroup:
     Type: AWS::Logs::LogGroup
     Properties:
@@ -104,14 +67,8 @@ Resources:
     Type: AWS::Lambda::Function
     Properties:
       Code:
-<<<<<<< HEAD
         S3Bucket: !If [UsingDefaultBucket, !Sub '${QSS3BucketName}-${AWS::Region}', !Ref QSS3BucketName]
         S3Key: Sub ${QSS3KeyPrefix}functions/packages/lambda.zip
-=======
-        S3Bucket:
-          Ref: LambdaCodeBucket
-        S3Key: thousandeyes-connect.zip
->>>>>>> e1ee10d45c42010c108ae3f11c7445eaf41228eb
       Handler: handler.http
       Runtime: nodejs12.x
       FunctionName: te-connect-v1-http
@@ -133,14 +90,8 @@ Resources:
     Type: AWS::Lambda::Function
     Properties:
       Code:
-<<<<<<< HEAD
         S3Bucket: !If [UsingDefaultBucket, !Sub '${QSS3BucketName}-${AWS::Region}', !Ref QSS3BucketName]
         S3Key: Sub ${QSS3KeyPrefix}functions/packages/lambda.zip
-=======
-        S3Bucket:
-          Ref: LambdaCodeBucket
-        S3Key: thousandeyes-connect.zip
->>>>>>> e1ee10d45c42010c108ae3f11c7445eaf41228eb
       Handler: handler.network
       Runtime: nodejs12.x
       FunctionName: te-connect-v1-network
@@ -162,14 +113,8 @@ Resources:
     Type: AWS::Lambda::Function
     Properties:
       Code:
-<<<<<<< HEAD
         S3Bucket: !If [UsingDefaultBucket, !Sub '${QSS3BucketName}-${AWS::Region}', !Ref QSS3BucketName]
         S3Key: Sub ${QSS3KeyPrefix}functions/packages/lambda.zip
-=======
-        S3Bucket:
-          Ref: LambdaCodeBucket
-        S3Key: thousandeyes-connect.zip
->>>>>>> e1ee10d45c42010c108ae3f11c7445eaf41228eb
       Handler: handler.connection
       Runtime: nodejs12.x
       FunctionName: te-connect-v1-connection
@@ -191,14 +136,8 @@ Resources:
     Type: AWS::Lambda::Function
     Properties:
       Code:
-<<<<<<< HEAD
         S3Bucket: !If [UsingDefaultBucket, !Sub '${QSS3BucketName}-${AWS::Region}', !Ref QSS3BucketName]
         S3Key: Sub ${QSS3KeyPrefix}functions/packages/lambda.zip
-=======
-        S3Bucket:
-          Ref: LambdaCodeBucket
-        S3Key: thousandeyes-connect.zip
->>>>>>> e1ee10d45c42010c108ae3f11c7445eaf41228eb
       Handler: handler.agentinfo
       Runtime: nodejs12.x
       FunctionName: te-connect-v1-agentinfo
@@ -220,14 +159,8 @@ Resources:
     Type: AWS::Lambda::Function
     Properties:
       Code:
-<<<<<<< HEAD
         S3Bucket: !If [UsingDefaultBucket, !Sub '${QSS3BucketName}-${AWS::Region}', !Ref QSS3BucketName]
         S3Key: Sub ${QSS3KeyPrefix}functions/packages/lambda.zip
-=======
-        S3Bucket:
-          Ref: LambdaCodeBucket
-        S3Key: thousandeyes-connect.zip
->>>>>>> e1ee10d45c42010c108ae3f11c7445eaf41228eb
       Handler: handler.status
       Runtime: nodejs12.x
       FunctionName: te-connect-v1-status
@@ -740,14 +673,6 @@ Resources:
           - Ref: ApiGatewayRestApi
           - "/*/*"
 Outputs:
-<<<<<<< HEAD
-=======
-  LambdaCodeBucketName:
-    Value:
-      Ref: LambdaCodeBucket
-    Export:
-      Name: te-connect-v1-LambdaCodeBucketName
->>>>>>> e1ee10d45c42010c108ae3f11c7445eaf41228eb
   HttpLambdaFunctionQualifiedArn:
     Description: Current Lambda function version
     Value:
@@ -803,7 +728,6 @@ Parameters:
     MaxLength: 32
     AllowedPattern: "[A-Za-z0-9]*"
     NoEcho: true
-<<<<<<< HEAD
   
   QSS3BucketName:
     AllowedPattern: '^[0-9a-zA-Z]+([0-9a-zA-Z-]*[0-9a-zA-Z])*$'
@@ -846,6 +770,3 @@ Parameters:
       a forward slash. See https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html 
       and https://aws-quickstart.github.io/option1.html.
     Type: String
-=======
-
->>>>>>> e1ee10d45c42010c108ae3f11c7445eaf41228eb
