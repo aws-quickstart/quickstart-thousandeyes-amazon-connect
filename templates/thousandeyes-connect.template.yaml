@@ -1,6 +1,10 @@
 ---
 AWSTemplateFormatVersion: '2010-09-09'
 Description: ThousandEyes metrics service for Amazon Connect client.
+Conditions:
+  UsingDefaultBucket: !Equals
+    - !Ref QSS3BucketName
+    - 'aws-quickstart'
 Resources:
   HttpLogGroup:
     Type: AWS::Logs::LogGroup
