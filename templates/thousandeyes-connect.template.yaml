@@ -68,7 +68,7 @@ Resources:
     Properties:
       Code:
         S3Bucket: !If [UsingDefaultBucket, !Sub '${QSS3BucketName}-${AWS::Region}', !Ref QSS3BucketName]
-        S3Key: Sub ${QSS3KeyPrefix}functions/packages/lambda.zip
+        S3Key: !Sub ${QSS3KeyPrefix}functions/packages/lambda.zip
       Handler: handler.http
       Runtime: nodejs12.x
       FunctionName: te-connect-v1-http
@@ -91,7 +91,7 @@ Resources:
     Properties:
       Code:
         S3Bucket: !If [UsingDefaultBucket, !Sub '${QSS3BucketName}-${AWS::Region}', !Ref QSS3BucketName]
-        S3Key: Sub ${QSS3KeyPrefix}functions/packages/lambda.zip
+        S3Key: !Sub ${QSS3KeyPrefix}functions/packages/lambda.zip
       Handler: handler.network
       Runtime: nodejs12.x
       FunctionName: te-connect-v1-network
@@ -114,7 +114,7 @@ Resources:
     Properties:
       Code:
         S3Bucket: !If [UsingDefaultBucket, !Sub '${QSS3BucketName}-${AWS::Region}', !Ref QSS3BucketName]
-        S3Key: Sub ${QSS3KeyPrefix}functions/packages/lambda.zip
+        S3Key: !Sub ${QSS3KeyPrefix}functions/packages/lambda.zip
       Handler: handler.connection
       Runtime: nodejs12.x
       FunctionName: te-connect-v1-connection
@@ -137,7 +137,7 @@ Resources:
     Properties:
       Code:
         S3Bucket: !If [UsingDefaultBucket, !Sub '${QSS3BucketName}-${AWS::Region}', !Ref QSS3BucketName]
-        S3Key: Sub ${QSS3KeyPrefix}functions/packages/lambda.zip
+        S3Key: !Sub ${QSS3KeyPrefix}functions/packages/lambda.zip
       Handler: handler.agentinfo
       Runtime: nodejs12.x
       FunctionName: te-connect-v1-agentinfo
@@ -160,7 +160,7 @@ Resources:
     Properties:
       Code:
         S3Bucket: !If [UsingDefaultBucket, !Sub '${QSS3BucketName}-${AWS::Region}', !Ref QSS3BucketName]
-        S3Key: Sub ${QSS3KeyPrefix}functions/packages/lambda.zip
+        S3Key: !Sub ${QSS3KeyPrefix}functions/packages/lambda.zip
       Handler: handler.status
       Runtime: nodejs12.x
       FunctionName: te-connect-v1-status
