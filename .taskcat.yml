@@ -9,7 +9,7 @@ project:
 
 tests:
   default:
-    template: ./templates/thousandeyes-connect.yaml
+    template: ./templates/thousandeyes-connect.teamplate.yaml
     parameters:
       QSS3BucketName:  $[taskcat_autobucket]
       QSS3BucketRegion: $[taskcat_current_region]

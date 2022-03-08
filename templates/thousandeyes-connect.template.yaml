@@ -178,35 +178,30 @@ Resources:
     Properties:
       FunctionName:
         Ref: HttpLambdaFunction
-      CodeSha256: E7mo0d+zuj65jn/rQ6JDSOK+I20rZenzraj3kR4znr8=
   NetworkLambdaVersionfLvewMyOVkCrcSZix84CROaWf64YGziPv3wruP1XWo:
     Type: AWS::Lambda::Version
     DeletionPolicy: Retain
     Properties:
       FunctionName:
         Ref: NetworkLambdaFunction
-      CodeSha256: E7mo0d+zuj65jn/rQ6JDSOK+I20rZenzraj3kR4znr8=
   ConnectionLambdaVersionKiPSspnL0MTOUnVI7WHXl8tFRYa0Z0TSQ008nuUi9w:
     Type: AWS::Lambda::Version
     DeletionPolicy: Retain
     Properties:
       FunctionName:
         Ref: ConnectionLambdaFunction
-      CodeSha256: E7mo0d+zuj65jn/rQ6JDSOK+I20rZenzraj3kR4znr8=
   AgentinfoLambdaVersionbHmfxRrCf1Fr4ZUuRQKJYdyZrfwObU5JZlEUHPASA:
     Type: AWS::Lambda::Version
     DeletionPolicy: Retain
     Properties:
       FunctionName:
         Ref: AgentinfoLambdaFunction
-      CodeSha256: E7mo0d+zuj65jn/rQ6JDSOK+I20rZenzraj3kR4znr8=
   StatusLambdaVersionDzNt9sBmXxSsOAQrhEl96zlVlZsYvKQ0BgeF8HCoR8:
     Type: AWS::Lambda::Version
     DeletionPolicy: Retain
     Properties:
       FunctionName:
         Ref: StatusLambdaFunction
-      CodeSha256: E7mo0d+zuj65jn/rQ6JDSOK+I20rZenzraj3kR4znr8=
   ApiGatewayRestApi:
     Type: AWS::ApiGateway::RestApi
     Properties:
