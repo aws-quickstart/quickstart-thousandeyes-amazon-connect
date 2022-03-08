@@ -7,7 +7,7 @@ The current WebRTC stack exposes packet drops and jitter while ThousandEye endpo
 This solution provides the additional insight directly to the call control softphone allowing contact center remote agents to consume in real time. 
 Technically, this is accomplished by embedding the relevant ThousandEyes dashboards as iFrame widgets into the contact center remote agent softphone implementation.  
 This solution shows the overall ThousandEyes endpoint agent health and online status in real time which correlates directly back to the contact center remote agents availability. 
-Additionaly, Network Latency is displayed as a measurement from the contact center remote agents browser session to the Amazon Connect EC2 instance supporting the contact center. 
+Additionally, Network Latency is displayed as a measurement from the contact center remote agents browser session to the Amazon Connect EC2 instance supporting the contact center. 
 A real-time snapshot of the contact center remote agent connection types; Ethernet, Wireless, and even Modem. 
 This functionality will help contact center operations understand if there is high network latency and if a contact center remote agent is on a WIFI connection or not. 
-This allows supervisors to have a dashboard that allows them to request for specific contact center agents move to wired or better connection in order to continue serving their customers with a high quality engagement. With that, ThousandEyes also provides the real time information on memory and CPU load, VPN latency and proxy connections that traditionally contribute to issues. 
+This allows supervisors to have a dashboard to request for specific contact center agents move to wired or better connection in order to continue serving their customers with a high quality engagement. With that, ThousandEyes also provides the real time information on memory and CPU load, VPN latency and proxy connections that traditionally contribute to issues. 
