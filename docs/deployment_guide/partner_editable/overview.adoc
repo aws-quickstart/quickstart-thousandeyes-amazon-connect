@@ -1,7 +1,7 @@
 This Quick Start deploys ThousandEyes' Amazon Connect Last Mile Audio on the AWS Cloud. If you are unfamiliar with AWS Quick Starts, refer to the https://fwd.aws/rA69w?[AWS Quick Start General Information Guide^].
 
 
-Remote Amazon Connect Agents use the https://docs.aws.amazon.com/connect/latest/adminguide/agent-user-guide.html[Amazon Connect Contact Control Panel (CCP)^] to interact with customer contacts. 
+Remote Amazon Connect agents use the https://docs.aws.amazon.com/connect/latest/adminguide/agent-user-guide.html[Amazon Connect Contact Control Panel (CCP)^] to interact with customer contacts. 
 In order to offer a high quality contact center engagement, remote agents should have visibility into possible call degradation at any given time while logged in via their web browser. 
 The current WebRTC stack exposes packet drops and jitter while ThousandEye endpoint agents add much more granular details into the overall path visualization.
 This solution provides the additional insight directly to the call control softphone allowing contact center remote agents to consume in real time. 
