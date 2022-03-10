@@ -838,7 +838,12 @@ p.footer-text a{color:#d7d8d8}
 <li><a href="#_costs_and_licenses">Costs and licenses</a></li>
 <li><a href="#_architecture">Architecture</a></li>
 <li><a href="#_deployment_options">Deployment options</a></li>
-<li><a href="#_predeployment_steps">Predeployment steps</a></li>
+<li><a href="#_predeployment_steps">Predeployment steps</a>
+<ul class="sectlevel2">
+<li><a href="#_setting_up_thousandeyes">Setting Up ThousandEyes</a></li>
+<li><a href="#_create_a_scheduled_test">Create a Scheduled Test</a></li>
+</ul>
+</li>
 <li><a href="#_deployment_steps">Deployment steps</a></li>
 <li><a href="#_postdeployment_steps">Postdeployment steps</a></li>
 <li><a href="#_troubleshooting">Troubleshooting</a></li>
@@ -889,6 +894,18 @@ See the <a href="https://github.com/aws-quickstart/quickstart-repo-name" target=
 <div class="sectionbody">
 <div class="paragraph">
 <p>This Quick Start deploys ThousandEyes' Amazon Connect Last Mile Audio on the AWS Cloud. If you are unfamiliar with AWS Quick Starts, refer to the <a href="https://fwd.aws/rA69w?" target="_blank" rel="noopener">AWS Quick Start General Information Guide</a>.</p>
+</div>
+<div class="paragraph">
+<p>Remote Amazon Connect agents use the <a href="https://docs.aws.amazon.com/connect/latest/adminguide/agent-user-guide.html" target="_blank" rel="noopener">Amazon Connect Contact Control Panel (CCP)</a> to interact with customer contacts.
+In order to offer a high quality contact center engagement, remote agents should have visibility into possible call degradation at any given time while logged in via their web browser.
+The current WebRTC stack exposes packet drops and jitter while ThousandEye endpoint agents add much more granular details into the overall path visualization.
+This solution provides the additional insight directly to the call control softphone allowing contact center remote agents to consume in real time.
+Technically, this is accomplished by embedding the relevant ThousandEyes dashboards as iFrame widgets into the contact center remote agent softphone implementation.
+This solution shows the overall ThousandEyes endpoint agent health and online status in real time which correlates directly back to the contact center remote agents availability.
+Additionally, Network Latency is displayed as a measurement from the contact center remote agents browser session to the Amazon Connect EC2 instance supporting the contact center.
+A real-time snapshot of the contact center remote agent connection types; Ethernet, Wireless, and even Modem.
+This functionality will help contact center operations understand if there is high network latency and if a contact center remote agent is on a WIFI connection or not.
+This allows supervisors to have a dashboard to request for specific contact center agents move to wired or better connection in order to continue serving their customers with a high quality engagement. With that, ThousandEyes also provides the real time information on memory and CPU load, VPN latency and proxy connections that traditionally contribute to issues.</p>
 </div>
 </div>
 </div>
@@ -974,7 +991,53 @@ AWS Cloud.</p>
 <div class="sect1">
 <h2 id="_predeployment_steps">Predeployment steps</h2>
 <div class="sectionbody">
-
+<div class="sect2">
+<h3 id="_setting_up_thousandeyes">Setting Up ThousandEyes</h3>
+<div class="paragraph">
+<p>The following steps assume you have a ThousandEyes account. If you do not, you can sign-up for a <a href="https://www.thousandeyes.com/signup/">14-day free trial at here</a>.</p>
+</div>
+<div class="paragraph">
+<p>====Deploy and Configure ThousandEyes Endpoint Agents
+First you&#8217;ll want to setup your ThousandEyes monitoring by deploying ThosuandEyes Endpoint Agents. ThousandEyes Endpoint Agents monitor network and app performance across the internet as well as collect device health. With Endpoint Agents installed on your Amazon Connect users' devices, you&#8217;ll be able to quickly identify any network or device issues that may be impacting a user&#8217;s experience of Amazon Connect.</p>
+</div>
+<div class="paragraph">
+<p>Follow the steps in this <a href="https://docs.thousandeyes.com/product-documentation/global-vantage-points/endpoint-agents/quick-guide-on-endpoint-agent#configuring-and-deploying-the-endpoint-agent">Endpoint deployment guide</a> o install the ThousandEyes Endpoint agent on any Windows or MacOS based user device.</p>
+</div>
+<div class="paragraph">
+<p>Note - for each deployed agent, note the Agent Name. You will use this when setting up the client widget below. The agent name is typically the device host name. For example: [quote, hans-mac-us]</p>
+</div>
+<div class="sect3">
+<h4 id="_configure_thousandeyes_to_monitor_amazon_connect">Configure ThousandEyes to Monitor Amazon Connect</h4>
+<div class="paragraph">
+<p>Once you&#8217;ve deployed at least one ThousandEyes Endpoint Agent you&#8217;ll want to configure ThousandEyes to monitor Amazon Connect from those agents.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_create_a_scheduled_test">Create a Scheduled Test</h3>
+<div class="paragraph">
+<p>First you&#8217;ll need to create a "Scheduled Test".</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Log in to your ThousandEyes account at <a href="https://app.thousandeyes.com" class="bare">https://app.thousandeyes.com</a></p>
+</li>
+<li>
+<p>Select Endpoint Agent -&#8594; <a href="https://app.thousandeyes.com/endpoint/test-settings/">Test Settings</a></p>
+</li>
+<li>
+<p>Select "Add New Test" and create a new "Web - HTTP Server" test</p>
+</li>
+<li>
+<p>In the URL field enter the URL of your Amazon Connect service. For example [quote, <a href="https://acmebusiness.my.connect.aws" class="bare">https://acmebusiness.my.connect.aws</a>].</p>
+</li>
+<li>
+<p>Name the test AmazonConnect or something similar. You will use this name when setting up the client widget (see below)</p>
+</li>
+</ol>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
