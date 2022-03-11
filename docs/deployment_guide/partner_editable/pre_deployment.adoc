@@ -19,30 +19,34 @@ Once you've deployed at least one ThousandEyes Endpoint Agent you'll want to con
 === Create a Scheduled Test
 First you'll need to create a "Scheduled Test".
 
-. Log in to your ThousandEyes account at https://app.thousandeyes.com
-. Select Endpoint Agent --> https://app.thousandeyes.com/endpoint/test-settings/[Test Settings]
-. Select "Add New Test" and create a new "Web - HTTP Server" test
-. In the URL field enter the URL of your Amazon Connect service. For example `https://acmebusiness.my.connect.aws]`.
-. Name the test `Amazon Connect` or something similar. You will use this name when setting up the client widget (see below)
+1. Log in to your ThousandEyes account at https://app.thousandeyes.com
+2. Select Endpoint Agent --> https://app.thousandeyes.com/endpoint/test-settings/[Test Settings]
+3. Select "Add New Test" and create a new "Web - HTTP Server" test
+4. In the URL field enter the URL of your Amazon Connect service. For example `https://acmebusiness.my.connect.aws`.
+5. Name the test `Amazon Connect` or something similar. You will use this name when setting up the client widget (see below)
 
 image::../docs/deployment_guide/images/1_AddNewTest.png[NewTest]
 
-. In the *Agents* field select the Endpoint Agents you installed in the previous step.
+6. In the *Agents* field select the Endpoint Agents you installed in the previous step.
 
 image::../docs/deployment_guide/images/2_Agents.png[Agents]
 
-. Select *Add New Test* in the lower right.
-. Also note the Account Group name that you created this test in, you will use it below.
+7. Select *Add New Test* in the lower right.
+8. Also note the Account Group name that you created this test in, you will use it below.
 
 === Enable ThousandEyes Session Monitorintg
 
 Next you'll want to enable session monitoring when the user is using the Amazon Connect web client.
 
-. Click on *Browser Session Settings* --> *Monitored Domain Sets* --> Add New Monitored Domain Set
+1. Click on *Browser Session Settings* --> *Monitored Domain Sets* --> Add New Monitored Domain Set
+
 image::../docs/deployment_guide/images/3_SessionMonitoring.png[SessionMonitoring]
-. Enter the web domain that your users browse to when using Amazon Connect. For example - if your users access Amazon Connect CCP via your Salesforce instance, you might add something like `*.salesforce.com`.
+
+2. Enter the web domain that your users browse to when using Amazon Connect. For example - if your users access Amazon Connect CCP via your Salesforce instance, you might add something like `*.salesforce.com`.
+
 image::../docs/deployment_guide/images/4_AddMonitoredDomainSet.png[AddMonitoredDomainSet]
-. Click *Add*
+
+3. Click *Add*
 
 ThousandEyes will now start running network monitoring to your Amazon Connect instance from each of the Endpoint Agents you installed and specified. It will also collect device health metrics that can be used alongside the network monitoring to quickly troubleshoot any issues that impact Amazon Connect services when users are using the Amazon Connect CCP soft phone.
 
