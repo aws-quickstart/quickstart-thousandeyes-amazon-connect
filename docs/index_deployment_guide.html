@@ -841,6 +841,8 @@ p.footer-text a{color:#d7d8d8}
 <li><a href="#_predeployment_steps">Predeployment steps</a>
 <ul class="sectlevel2">
 <li><a href="#_setting_up_thousandeyes">Setting Up ThousandEyes</a></li>
+<li><a href="#_deploy_and_configure_thousandeyes_endpoint_agents">Deploy and Configure ThousandEyes Endpoint Agents</a></li>
+<li><a href="#_configure_thousandeyes_to_monitor_amazon_connect">Configure ThousandEyes to Monitor Amazon Connect</a></li>
 <li><a href="#_create_a_scheduled_test">Create a Scheduled Test</a></li>
 </ul>
 </li>
@@ -996,21 +998,23 @@ AWS Cloud.</p>
 <div class="paragraph">
 <p>The following steps assume you have a ThousandEyes account. If you do not, you can sign-up for a <a href="https://www.thousandeyes.com/signup/">14-day free trial at here</a>.</p>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_deploy_and_configure_thousandeyes_endpoint_agents">Deploy and Configure ThousandEyes Endpoint Agents</h3>
 <div class="paragraph">
-<p>====Deploy and Configure ThousandEyes Endpoint Agents
-First you&#8217;ll want to setup your ThousandEyes monitoring by deploying ThosuandEyes Endpoint Agents. ThousandEyes Endpoint Agents monitor network and app performance across the internet as well as collect device health. With Endpoint Agents installed on your Amazon Connect users' devices, you&#8217;ll be able to quickly identify any network or device issues that may be impacting a user&#8217;s experience of Amazon Connect.</p>
+<p>First you&#8217;ll want to setup your ThousandEyes monitoring by deploying ThosuandEyes Endpoint Agents. ThousandEyes Endpoint Agents monitor network and app performance across the internet as well as collect device health. With Endpoint Agents installed on your Amazon Connect users' devices, you&#8217;ll be able to quickly identify any network or device issues that may be impacting a user&#8217;s experience of Amazon Connect.</p>
 </div>
 <div class="paragraph">
 <p>Follow the steps in this <a href="https://docs.thousandeyes.com/product-documentation/global-vantage-points/endpoint-agents/quick-guide-on-endpoint-agent#configuring-and-deploying-the-endpoint-agent">Endpoint deployment guide</a> o install the ThousandEyes Endpoint agent on any Windows or MacOS based user device.</p>
 </div>
 <div class="paragraph">
-<p>Note - for each deployed agent, note the Agent Name. You will use this when setting up the client widget below. The agent name is typically the device host name. For example: [quote, hans-mac-us]</p>
+<p>Note - for each deployed agent, note the Agent Name. You will use this when setting up the client widget below. The agent name is typically the device host name. For example: <code>hans-mac-us</code></p>
 </div>
-<div class="sect3">
-<h4 id="_configure_thousandeyes_to_monitor_amazon_connect">Configure ThousandEyes to Monitor Amazon Connect</h4>
+</div>
+<div class="sect2">
+<h3 id="_configure_thousandeyes_to_monitor_amazon_connect">Configure ThousandEyes to Monitor Amazon Connect</h3>
 <div class="paragraph">
 <p>Once you&#8217;ve deployed at least one ThousandEyes Endpoint Agent you&#8217;ll want to configure ThousandEyes to monitor Amazon Connect from those agents.</p>
-</div>
 </div>
 </div>
 <div class="sect2">
@@ -1030,10 +1034,22 @@ First you&#8217;ll want to setup your ThousandEyes monitoring by deploying Thosu
 <p>Select "Add New Test" and create a new "Web - HTTP Server" test</p>
 </li>
 <li>
-<p>In the URL field enter the URL of your Amazon Connect service. For example [quote, <a href="https://acmebusiness.my.connect.aws" class="bare">https://acmebusiness.my.connect.aws</a>].</p>
+<p>In the URL field enter the URL of your Amazon Connect service. For example <code><a href="https://acmebusiness.my.connect.aws" class="bare">https://acmebusiness.my.connect.aws</a>]</code>.</p>
 </li>
 <li>
-<p>Name the test AmazonConnect or something similar. You will use this name when setting up the client widget (see below)</p>
+<p>Name the test <code>Amazon Connect</code> or something similar. You will use this name when setting up the client widget (see below)</p>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="docs/deployment_guide/images/1_AddNewTest.png" alt="NewTest">
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In the <strong>Agents</strong> field select the Endpoint Agents you installed in the previous step.</p>
 </li>
 </ol>
 </div>
