@@ -1,6 +1,35 @@
 ---
 AWSTemplateFormatVersion: '2010-09-09'
-Description: ThousandEyes metrics service for Amazon Connect client.
+Description: ThousandEyes metrics service for Amazon Connect client. (qs-1sr25jti7)
+Metadata:
+  QuickStartDocumentation:
+    EntrypointName: Deploy into a new VPC
+    Order: "1"
+  LintSpellExclude:
+    - ThousandEyes
+    - customizing
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+      - Label:
+          default: ThousandEyes configuration
+        Parameters:
+          - ThousandEyesUser
+          - ThousandEyesUserToken
+      - Label:
+          default: AWS Quick Start configuration
+        Parameters:
+          - QSS3BucketName
+          - QSS3KeyPrefix
+    ParameterLabels:
+      ThousandEyesUser:
+        default: ThousandEyes user
+      ThousandEyesUserToken:
+        default: ThousandEyes API token
+      QSS3BucketName:
+        default: Quick Start S3 bucket name
+      QSS3KeyPrefix:
+        default: Quick Start S3 key prefix
+
 Conditions:
   UsingDefaultBucket: !Equals
     - !Ref QSS3BucketName
@@ -718,10 +747,10 @@ Outputs:
       Name: te-connect-v1-ServiceEndpoint
 Parameters:
   ThousandEyesUser:
-    Description: ThousandEyes user email
+    Description: ThousandEyes user email.
     Type: String
   ThousandEyesUserToken:
-    Description: ThousandEyes user API token
+    Description: ThousandEyes user API token.
     Type: String
     MinLength: 32
     MaxLength: 32
@@ -742,15 +771,6 @@ Parameters:
       Start location. This name can include numbers, lowercase letters, 
       uppercase letters, and hyphens, but do not start or end with a hyphen (-). 
       See https://aws-quickstart.github.io/option1.html.
-    Type: String
-
-  QSS3BucketRegion:
-    Default: 'us-east-1'
-    Description: 'AWS Region where the Quick Start S3 bucket (QSS3BucketName) is 
-    hosted. Keep the default Region unless you are customizing the template. 
-    Changing this Region updates code references to point to a new Quick Start location. 
-    When using your own bucket, specify the Region. 
-    See https://aws-quickstart.github.io/option1.html.'
     Type: String
 
   QSS3KeyPrefix:
