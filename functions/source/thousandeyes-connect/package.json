@@ -1,0 +1,17 @@
+{
+  "name": "te-aws-connect",
+  "version": "1.0.0",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "ThousandEyes",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "serverless-domain-manager": "^3.3.2",
+    "serverless-offline": "^8.2.0"
+  },
+  "devDependencies": {}
+}

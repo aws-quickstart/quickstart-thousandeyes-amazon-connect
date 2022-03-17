@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+  <meta name="referrer" content="no-referrer" />
+  <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> -->
+  <head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="release/connect-streams.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+    <script src="js/common.js" type="text/javascript"></script>
+    <script>
+    function init() {
+      // initialize the ccp
+      connect.core.initCCP(container, {
+        ccpUrl: instanceURL,            // REQUIRED
+        loginPopup: true,               // optional, defaults to `true`
+        loginPopupAutoClose: true,      // optional, defaults to `false`
+        softphone: {                    // optional, defaults below apply if not provided
+          allowFramedSoftphone: true,   // optional, defaults to false
+          disableRingtone: false,       // optional, defaults to false
+        }
+      });
+    }
+    
+    function toggleTab(tabId, tabClass) {
+      var i;
+      var x = document.getElementsByClassName(tabClass); // teTab
+      for (i = 0; i < x.length; i++) {
+        if (x[i].id != tabId) {
+          x[i].classList.remove("show");
+        }
+      }
+      document.getElementById(tabId).classList.toggle("show");
+    }
+
+    function showTab(tabId, tabClass) {
+      var i;
+      var x = document.getElementsByClassName(tabClass); // teTab
+      for (i = 0; i < x.length; i++) {  
+        if (x[i].id != tabId) {
+          x[i].classList.toggle("hide");
+        }
+      } 
+      document.getElementById(tabId).classList.toggle("show");
+    }
+
+    function saveAgent() {
+      setCookie ("accountName", $('#accountName').val(), 999);
+      setCookie ("hostName", $('#hostName').val(), 999);
+      setCookie ("testName", $('#testName').val(), 999);
+    }
+
+    function updateFromCookie (name, defaultValue) {
+      let val = getCookie(name) ??  defaultValue;
+      $(`#${name}`).val(val);
+      setCookie(name, val);
+    }
+
+    function initAgent (accountName, hostName, testName) {
+      updateFromCookie ("accountName", accountName);
+      updateFromCookie ("hostName", hostName);
+      updateFromCookie ("testName", testName);
+    }
+
+    </script>
+
+  </head>
+  <!-- Add the call to init() as an onload so it will only run once the page is loaded -->
+  <!-- <body onload="init()"> -->
+  <body>
+    <style>
+      #ccpContainer {
+        width: 265px;
+        /* width: 600px; */
+        height: 465px;
+        /* overflow: hidden; */
+        float: left;
+        margin-left: 22px;
+        padding: 25px;
+      }
+      
+      #teContainer {
+        /* float: left; */
+      }
+
+      #teHeader {
+        margin-top: 5px;
+        margin-bottom: 5px;
+      }
+
+      .flexRow {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .flexRowItem {
+        margin-top: auto;
+        margin-bottom: auto;
+      }
+
+      #teSettings {
+      }
+
+      #teDash {
+        width: 260px;
+        height: 200px;
+        border: 1px;
+        border-color: rgb(224, 224, 224);
+        border-radius: 2px;
+        padding: 5px;
+      }
+
+      .teMetricItem {
+        display: flex;
+        justify-content: space-between;
+        /* align-content: flex-start; */
+      }
+
+      .teMetricTitle {
+        padding: 5px;
+        font-family: monospace;
+        color: grey;
+      }
+
+      .teMetric {
+        padding: 2px;
+        font-family: monospace;
+        color: rgb(53, 53, 53);
+        border: 1px;
+        border-radius: 3px;
+        background-color: #F2F2F2;
+        width: 75px;
+        height: 20px;
+        text-align: center;
+      }
+
+
+      .teBarItem {
+        border-style: solid;
+        border-width: 1px;
+        margin: 0px;
+        padding: 5px;
+        background: none;
+      }
+
+      .teButton {
+        border: none; 
+        background: none;
+      }
+
+      .teText {
+        font-family: sans-serif; 
+        color: grey; 
+        font-size: small;
+      }
+
+      .tooltip {
+      }
+
+      /* Tooltip text */
+      .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 120px;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        padding: 5px 0;
+        border-radius: 6px;
+      
+        position: absolute;
+        z-index: 1;
+        margin-top: 25px;
+      }
+
+      .tooltip:hover .tooltiptext {
+        visibility: visible;
+      }
+
+
+      .hide {
+        display: none;
+      }
+
+      .show {
+        display: block;
+      }
+      
+      .circle {
+        height: 15px;
+        width: 15px;
+        background-color: #bbb;
+        border-radius: 50%;
+        display: flex;
+      }
+
+      .green {
+        background-color: limegreen;
+      }
+
+      .yellow {
+        background-color: yellow;
+      }
+
+      .red {
+        background-color: red;
+      }
+
+      #teResponse {
+        clear: both;
+        padding: 5px;
+        margin: 5px;
+        font-family: monospace;
+        background-color: whitesmoke;
+        border: 1px;
+        border-color: rgb(224, 224, 224);
+        border-radius: 2px;
+        border-style: solid;
+        /* float: inline-end; */
+        position: absolute;
+        bottom: 0;
+        width: 265px;
+        color: rgb(224, 224, 224);
+      }
+
+    </style>
+
+    <section id="ccpContainer">
+      <div id="ccpContainer1">
+        <script>
+          var instanceURL = "https://te-labs.my.connect.aws/connect/ccp#/";
+          var metricsURL = "https://bqnoz0b8ol.execute-api.us-east-1.amazonaws.com/v1";
+          // var metricsURL = "http://localhost:3000/v1";
+          var defaultHostName = "HASHLOCK-M-KJUS";
+          var defaultAccountGroup = "Endpoint Agent";
+          var defaultTestName = "AWS Connect";
+          var refreshS = 30;
+          var container = document.getElementById("ccpContainer");
+          var ccpURL = instanceURL;
+          init();
+        </script>
+      </div>
+      <div id="teContainer">
+        <div id="teHeader" class="flexRow">
+          <img class="flexRowItem" src="images/logo.png" width="80px"/>
+          <div  class="flexRowItem"  style="font-family: sans-serif; color: grey; font-size: small;">Amazon Connect Health</div>
+          <button class="flexRowItem teButton" style="margin-right: 0px; padding-right: 0px;" onclick="toggleTab('teDash', 'teViewTab')">
+            <span id="teHealth" class="circle"></span> 
+          </button>
+          
+        </div>
+        
+        <div id="teDash" class="teViewTab hide">
+          <div class="teTab" style="min-height: 100px;">
+            <div class="flexRow">
+              <div class="teMetricTitle">Server Response</div>
+              <div id="teServerResponse" class="teMetric">- ms</div>
+            </div>
+            <div class="flexRow">
+              <div class="teMetricTitle">WiFi Signal</div>
+              <div id="teWifi" class="teMetric">- %</div>
+            </div>
+            <div class="flexRow">
+              <div class="teMetricTitle">Network Latency</div>
+              <div id="teLatency" class="teMetric">- ms</div>
+            </div>
+          </div>
+          <div id="teSettings" class="teTab teText hide" style="min-height: 100px;">
+            <div class="flexRow" >
+              <div class="flexRowItem" style="margin-right:10px;">Host Name</div>
+              <input class="flexRowItem" style="margin-left:10px;" type="text" id="hostName" name="HostName" placeholder="Host Name">
+            </div>
+            <div class="flexRow" >
+              <div class="flexRowItem" style="margin-right:10px;">Account Group</div>
+              <input class="flexRowItem" style="margin-left:10px;" type="text" id="accountName" name="AccountName" placeholder="Account Name">
+            </div>
+            <div class="flexRow" >
+              <div class="flexRowItem" style="margin-right:10px;">Test Name</div>
+              <input class="flexRowItem" style="margin-left:10px;" type="text" id="testName" name="TestName" placeholder="Test Name">
+            </div>
+            <div class="flexRow">
+              <button class="flexRowItem" style="align-self: right; margin: 2px;" onclick="saveAgent()">Set</button>
+            </div>
+          </div>
+          <div class="flexRow" style="justify-content: flex-end;">
+            <button class="flexRowItem teButton tooltip" style="align-self: flex-end;" onclick="showTab('teSettings', 'teTab')">
+              <span class="tooltiptext">Agent Settings</span>
+              <img style="display:flex;" src="images/gear.png" height="15px"></img> 
+            </button>
+          </div>
+          <script>
+            initAgent (defaultAccountGroup, defaultHostName, defaultTestName);
+            teAgentInfo (getCookie("hostName"), getCookie("accountName"), getCookie("testName")).then ((agentInfo) => {
+                setCookie("accountId", agentInfo.accountGroupId);
+                setCookie("agentId", agentInfo.agentId);
+                setCookie("testId", agentInfo.testId);
+                teEndpointMetric(agentInfo.accountGroupId, agentInfo.agentId, agentInfo.testId);
+             })
+           
+            setInterval(function() {
+              teEndpointMetric(getCookie("accountId"), getCookie("agentId"), getCookie("testId"));
+            }, refreshS * 1000);
+          </script>
+        </div>
+        
+      </div>
+      
+    </section>
+      
+  </body>
+</html>
+
+ 
