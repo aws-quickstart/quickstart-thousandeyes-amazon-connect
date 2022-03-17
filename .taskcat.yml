@@ -14,7 +14,7 @@ tests:
       QSS3BucketName:  $[taskcat_autobucket]
       QSS3BucketRegion: $[taskcat_current_region]
       QSS3KeyPrefix: quickstart-thousandeyes-amazon-connect/ 
-      ThousandEyesUserToken: override
+      ThousandEyesUserToken: $[taskcat_genpass_32A]
       ThousandEyesUser: override
     regions:
     # - af-south-1      # Africa (Cape Town)
