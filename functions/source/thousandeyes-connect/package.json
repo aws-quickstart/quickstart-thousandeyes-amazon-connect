@@ -9,7 +9,7 @@
   "author": "ThousandEyes",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.2",
     "serverless-domain-manager": "^3.3.2",
     "serverless-offline": "^8.2.0"
   },
