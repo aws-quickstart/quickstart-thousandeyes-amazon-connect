@@ -5,9 +5,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.17">
-<meta name="description" content="ThousandEyes' Amazon Connect Last Mile Audio Deployment Guide on AWS">
-<meta name="keywords" content="Quick Start, AWS, ThousandEyes' Amazon Connect Last Mile Audio">
-<title>ThousandEyes' Amazon Connect Last Mile Audio on the AWS Cloud</title>
+<meta name="description" content="ThousandEyes' Amazon Connect Last Mile Connectivity Deployment Guide on AWS">
+<meta name="keywords" content="Quick Start, AWS, ThousandEyes' Amazon Connect Last Mile Connectivity">
+<title>ThousandEyes' Amazon Connect Last Mile Connectivity on the AWS Cloud</title>
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
 /* Uncomment @import statement to use as custom stylesheet */
@@ -862,7 +862,7 @@ p.footer-text a{color:#d7d8d8}
 <div id="content">
 <div id="preamble">
 <div class="sectionbody">
-<h2 id="_thousandeyes_amazon_connect_last_mile_audio_on_the_aws_cloud" class="discrete text-center">ThousandEyes' Amazon Connect Last Mile Audio on the AWS Cloud</h2>
+<h2 id="_thousandeyes_amazon_connect_last_mile_connectivity_on_the_aws_cloud" class="discrete text-center">ThousandEyes' Amazon Connect Last Mile Connectivity on the AWS Cloud</h2>
 <h2 id="_quick_start_deployment_guide" class="discrete text-left text-center">Quick Start deployment guide</h2>
 <div class="imageblock text-center">
 <div class="content">
@@ -900,15 +900,15 @@ See the <a href="https://github.com/aws-quickstart/quickstart-repo-name" target=
 <h2 id="_overview">Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This Quick Start deploys ThousandEyes' Amazon Connect Last Mile Audio on the AWS Cloud. If you are unfamiliar with AWS Quick Starts, refer to the <a href="https://fwd.aws/rA69w?" target="_blank" rel="noopener">AWS Quick Start General Information Guide</a>.</p>
+<p>This Quick Start deploys ThousandEyes' Amazon Connect Last Mile Connectivity on the AWS Cloud. If you are unfamiliar with AWS Quick Starts, refer to the <a href="https://fwd.aws/rA69w?" target="_blank" rel="noopener">AWS Quick Start General Information Guide</a>.</p>
 </div>
 <div class="paragraph">
 <p>Remote Amazon Connect agents use the <a href="https://docs.aws.amazon.com/connect/latest/adminguide/agent-user-guide.html" target="_blank" rel="noopener">Amazon Connect Contact Control Panel (CCP)</a> to interact with customer contacts.
 In order to offer a high quality contact center engagement, remote agents should have visibility into possible call degradation at any given time while logged in via their web browser.
 The current WebRTC stack exposes packet drops and jitter while <a href="https://www.thousandeyes.com/product/endpoint-agents/" target="_blank" rel="noopener">ThousandEyes Endpoint Agents</a> add much more granular details into the overall path visualization.
-This solution provides the additional insight directly to the call control softphone allowing contact center remote agents to consume in real time.
+This solution provides the additional insight directly to the call control softphone allowing contact center remote agents to consume in real time. Agents now have the ability to understand if the cause for any missed or dropped calls is due to signaling latency from their connection.
 Technically, this is accomplished by embedding the relevant ThousandEyes dashboards as iFrame widgets into the contact center remote agent softphone implementation.
-This solution shows the overall ThousandEyes endpoint agent health and online status in real time which correlates directly back to the contact center remote agents availability.
+This solution shows the overall ThousandEyes Endpoint Agent health and online status in real time which correlates directly back to the contact center remote agents availability.
 Additionally, Network Latency is displayed as a measurement from the contact center remote agents browser session to the Amazon Connect EC2 instance supporting the contact center.
 A real-time snapshot of the contact center remote agent connection types; Ethernet, Wireless, and even Modem.
 This functionality will help contact center operations understand if there is high network latency and if a contact center remote agent is on a WIFI connection or not.
@@ -928,14 +928,14 @@ This allows supervisors to have a dashboard to request for specific contact cent
 <h2 id="_architecture">Architecture</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Deploying this Quick Start with default parameters builds the following ThousandEyes' Amazon Connect Last Mile Audio environment in the
+<p>Deploying this Quick Start with default parameters builds the following ThousandEyes' Amazon Connect Last Mile Connectivity environment in the
 AWS Cloud.</p>
 </div>
 <div id="architecture1" class="imageblock">
 <div class="content">
 <img src="docs/deployment_guide/images/architecture_diagram.png" alt="Architecture">
 </div>
-<div class="title">Figure 1. Quick Start architecture for ThousandEyes' Amazon Connect Last Mile Audio on AWS</div>
+<div class="title">Figure 1. Quick Start architecture for ThousandEyes' Amazon Connect Last Mile Connectivity on AWS</div>
 </div>
 <div class="paragraph">
 <p>As shown in <a href="#architecture1">Figure 1</a>, this Quick Start sets up the following:</p>
@@ -946,7 +946,7 @@ AWS Cloud.</p>
 <p>The ThousandEyes Metrics Service is an API Gateway that is backed by AWS Lambda fucntions*</p>
 </li>
 <li>
-<p>Each AWS Lambda function is able to query a customer&#8217;s deployed ThousandEyes endpoint agent to retrieve relevant metrics. The AWS Lambda fucntions initially created with this deployment are as follows:</p>
+<p>Each AWS Lambda function is able to query a customer&#8217;s deployed ThousandEyes Endpoint Agent to retrieve relevant metrics. The AWS Lambda fucntions initially created with this deployment are as follows:</p>
 <div class="ulist">
 <ul>
 <li>
@@ -975,7 +975,7 @@ AWS Cloud.</p>
 <h2 id="_deployment_options">Deployment options</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This Quick Start provides the Amazon CloudFormation template that builds a serverless architecture consiting of the ThousandEyes Metrics Service that supports that supports the ThousandEyes' Amazon Connect Last Mile Audio solution.</p>
+<p>This Quick Start provides the Amazon CloudFormation template that builds a serverless architecture consiting of the ThousandEyes Metrics Service that supports that supports the ThousandEyes' Amazon Connect Last Mile Connectivity solution.</p>
 </div>
 </div>
 </div>
@@ -991,10 +991,10 @@ AWS Cloud.</p>
 <div class="sect2">
 <h3 id="_deploy_and_configure_thousandeyes_endpoint_agents">Deploy and Configure ThousandEyes Endpoint Agents</h3>
 <div class="paragraph">
-<p>First you&#8217;ll want to setup your ThousandEyes monitoring by deploying ThosuandEyes Endpoint Agents. ThousandEyes Endpoint Agents monitor network and app performance across the internet as well as collect device health. With Endpoint Agents installed on your Amazon Connect users' devices, you&#8217;ll be able to quickly identify any network or device issues that may be impacting a user&#8217;s experience of Amazon Connect.</p>
+<p>First you&#8217;ll want to setup your ThousandEyes monitoring by deploying ThosuandEyes Endpoint Agents. ThousandEyes Endpoint Agents monitor network and app performance across the internet as well as collect device health. With ThousandEyes Endpoint Agents installed on your Amazon Connect users' devices, you&#8217;ll be able to quickly identify any network or device issues that may be impacting a user&#8217;s experience of Amazon Connect.</p>
 </div>
 <div class="paragraph">
-<p>Follow the steps in this <a href="https://docs.thousandeyes.com/product-documentation/global-vantage-points/endpoint-agents/quick-guide-on-endpoint-agent#configuring-and-deploying-the-endpoint-agent">Endpoint deployment guide</a> o install the ThousandEyes Endpoint agent on any Windows or MacOS based user device.</p>
+<p>Follow the steps in this <a href="https://docs.thousandeyes.com/product-documentation/global-vantage-points/endpoint-agents/quick-guide-on-endpoint-agent#configuring-and-deploying-the-endpoint-agent">ThousandEyes Endpoint Agents deployment guide</a> to install the ThousandEyes Endpoint agent on any Windows or MacOS based user device.</p>
 </div>
 <div class="paragraph">
 <p>Please note the <strong>Agent Name</strong> for each deployed agent as you will use this when setting up the client widget below. The agent name is typically the device host name. For example: <code>hans-mac-us</code></p>
@@ -1038,7 +1038,7 @@ AWS Cloud.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>In the <strong>Agents</strong> field select the Endpoint Agents you installed in the previous step.</p>
+<p>In the <strong>Agents</strong> field select the ThousandEyes Endpoint Agents you installed in the previous step.</p>
 </li>
 </ol>
 </div>
@@ -1095,7 +1095,7 @@ AWS Cloud.</p>
 </ol>
 </div>
 <div class="paragraph">
-<p>ThousandEyes will now start running network monitoring to your Amazon Connect instance from each of the Endpoint Agents you installed and specified. It will also collect device health metrics that can be used alongside the network monitoring to quickly troubleshoot any issues that impact Amazon Connect services when users are using the Amazon Connect CCP soft phone.</p>
+<p>ThousandEyes will now start running network monitoring to your Amazon Connect instance from each of the ThousandEyes Endpoint Agents you installed and specified. It will also collect device health metrics that can be used alongside the network monitoring to quickly troubleshoot any issues that impact Amazon Connect services when users are using the Amazon Connect CCP soft phone.</p>
 </div>
 </div>
 </div>
@@ -1139,7 +1139,7 @@ Unless you are customizing the Quick Start templates for your own projects, don&
 <p>Choose <strong>Create stack</strong> to deploy the stack.</p>
 </li>
 <li>
-<p>Monitor the stack&#8217;s status, and when the status is <strong>CREATE_COMPLETE</strong>, the ThousandEyes' Amazon Connect Last Mile Audio deployment is ready.</p>
+<p>Monitor the stack&#8217;s status, and when the status is <strong>CREATE_COMPLETE</strong>, the ThousandEyes' Amazon Connect Last Mile Connectivity deployment is ready.</p>
 </li>
 <li>
 <p>To view the created resources, choose the <strong>Outputs</strong> tab.</p>
@@ -1199,7 +1199,7 @@ Unless you are customizing the Quick Start templates for your own projects, don&
       var metricsURL = "https://jur5bq3i8a.execute-api.us-east-1.amazonaws.com/v1";
       var defaultHostName = "hans-mac-us";
       var defaultAccountGroup = "Endpoint Agent";
-      var defaultTestName = "AWS Connect";
+      var defaultTestName = "Amazon Connect";
       var refreshS = 60;
       var container = document.getElementById("ccpContainer");
       var ccpURL = instanceURL;

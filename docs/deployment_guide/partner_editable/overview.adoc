@@ -1,12 +1,12 @@
-This Quick Start deploys ThousandEyes' Amazon Connect Last Mile Audio on the AWS Cloud. If you are unfamiliar with AWS Quick Starts, refer to the https://fwd.aws/rA69w?[AWS Quick Start General Information Guide^].
+This Quick Start deploys ThousandEyes' Amazon Connect Last Mile Connectivity on the AWS Cloud. If you are unfamiliar with AWS Quick Starts, refer to the https://fwd.aws/rA69w?[AWS Quick Start General Information Guide^].
 
 
 Remote Amazon Connect agents use the https://docs.aws.amazon.com/connect/latest/adminguide/agent-user-guide.html[Amazon Connect Contact Control Panel (CCP)^] to interact with customer contacts. 
 In order to offer a high quality contact center engagement, remote agents should have visibility into possible call degradation at any given time while logged in via their web browser. 
 The current WebRTC stack exposes packet drops and jitter while https://www.thousandeyes.com/product/endpoint-agents/[ThousandEyes Endpoint Agents^] add much more granular details into the overall path visualization.
-This solution provides the additional insight directly to the call control softphone allowing contact center remote agents to consume in real time. 
+This solution provides the additional insight directly to the call control softphone allowing contact center remote agents to consume in real time. Agents now have the ability to understand if the cause for any missed or dropped calls is due to signaling latency from their connection. 
 Technically, this is accomplished by embedding the relevant ThousandEyes dashboards as iFrame widgets into the contact center remote agent softphone implementation.  
-This solution shows the overall ThousandEyes endpoint agent health and online status in real time which correlates directly back to the contact center remote agents availability. 
+This solution shows the overall ThousandEyes Endpoint Agent health and online status in real time which correlates directly back to the contact center remote agents availability. 
 Additionally, Network Latency is displayed as a measurement from the contact center remote agents browser session to the Amazon Connect EC2 instance supporting the contact center. 
 A real-time snapshot of the contact center remote agent connection types; Ethernet, Wireless, and even Modem. 
 This functionality will help contact center operations understand if there is high network latency and if a contact center remote agent is on a WIFI connection or not. 

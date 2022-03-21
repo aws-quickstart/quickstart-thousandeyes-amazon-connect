@@ -13,7 +13,7 @@ As shown in <<architecture1>>, this Quick Start sets up the following:
 
 
 * The ThousandEyes Metrics Service is an API Gateway that is backed by AWS Lambda fucntions*
-* Each AWS Lambda function is able to query a customer's deployed ThousandEyes endpoint agent to retrieve relevant metrics. The AWS Lambda fucntions initially created with this deployment are as follows:
+* Each AWS Lambda function is able to query a customer's deployed ThousandEyes Endpoint Agent to retrieve relevant metrics. The AWS Lambda fucntions initially created with this deployment are as follows:
 ** *http*: Getting the http server response time to the amazon connect instance (Server Response) (using the ‘totalTime’ field).*
 ** *network*: Displays the network latency metrics (using the ‘avgLatency’ field).*
 ** *connection*: Issues the strength of the Wi-Fi signal (using the ‘wirelessProfile.quality’ field).*

@@ -1,7 +1,7 @@
 :quickstart-project-name: quickstart-repo-name
 :quickstart-github-org: aws-quickstart
-:partner-product-name: ThousandEyes' Amazon Connect Last Mile Audio
-:partner-product-short-name: ThousandEyes' Amazon Connect Last Mile Audio
+:partner-product-name: ThousandEyes' Amazon Connect Last Mile Connectivity
+:partner-product-short-name: ThousandEyes' Amazon Connect Last Mile Connectivity
 :partner-company-name: ThousandEyes, Inc
 :doc-month: March
 :doc-year: 2022

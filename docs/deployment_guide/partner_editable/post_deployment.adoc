@@ -25,7 +25,7 @@ Here is an example code snippet from `index.html`:
       var metricsURL = "https://jur5bq3i8a.execute-api.us-east-1.amazonaws.com/v1";
       var defaultHostName = "hans-mac-us";
       var defaultAccountGroup = "Endpoint Agent";
-      var defaultTestName = "AWS Connect";
+      var defaultTestName = "Amazon Connect";
       var refreshS = 60;
       var container = document.getElementById("ccpContainer");
       var ccpURL = instanceURL;
