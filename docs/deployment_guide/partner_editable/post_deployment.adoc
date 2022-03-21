@@ -1,3 +1,47 @@
 // Include any postdeployment steps here, such as steps necessary to test that the deployment was successful. If there are no postdeployment steps, leave this file empty.
 
 == Postdeployment steps
+
+=== Embedding the ThousandEyes Client Widget
+
+You can use the included example client code in the `softphone-client` folder to embed a ThousandEyes metrics widget on the same webpage that you embed the Amazon Connect CCP.
+
+1. The `softphone-client` folder contains an example `index.html` file and javascript that shows how to embed the ThousandEyes widget alongside the Amazon Connect CCP. Open the `index.html` file.
+2. Fill in the required variables:
+* `instanceURL` - the url of your Amazon Connect instance
+* `metricsURL` - the url of your ThousandEyes metrics API service you deployed in the above step
+* `defaultHostName` - the default hostname that identifies the end user machichine; this should be the same name as the computer name reported by Endpoint agent in ThousandEyes
+* `defaultTestName` - the name of the Endpoint scheduled test that monitors your Amazon Connect instance
+* `defaultAccountGroup` - the ThousandEyes Account Group name that has the Amazon Connect test
+* `refreshS` - the frequency to update metrics / health. Should not be less than 60 (seconds)
+
+Here is an example code snippet from `index.html`:
+
+[source,html]
+----
+<div id="ccpContainer1">
+   <script>
+      var instanceURL = "https://acmebusiness.my.connect.aws/connect/ccp#/";
+      var metricsURL = "https://jur5bq3i8a.execute-api.us-east-1.amazonaws.com/v1";
+      var defaultHostName = "hans-mac-us";
+      var defaultAccountGroup = "Endpoint Agent";
+      var defaultTestName = "AWS Connect";
+      var refreshS = 60;
+      var container = document.getElementById("ccpContainer");
+      var ccpURL = instanceURL;
+      init();
+   </script>
+</div>
+----
+
+The above code is an example. You can copy the contents of `index.html` as well as the `/js/common.js` file to your web server. You can also upload the contents of the `softphone-client` folder to an Amazon S3 bucket to run as an example static web page to see the widget in action.
+
+You should now be able to display the ThousandEyes widget on your Amazon Connect client webpage.
+
+Here's an example what the example widget looks like embedded below the default Amazon Connect CCP widget:
+
+image::../docs/deployment_guide/images/5_HealthWidget.png[HealthWidget]
+
+Clicking on the settings icon allows you to modify the ThousandEyes *Endpoint Agent* (Host Name), *Account Group*, and *Endpoint Schedule Test* (Test Name). The client side code will store these as cookies so they will not change on browser refresh.
+
+image::../docs/deployment_guide/images/6_CCP-Login.png[CCP-Login]

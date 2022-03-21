@@ -848,7 +848,11 @@ p.footer-text a{color:#d7d8d8}
 </ul>
 </li>
 <li><a href="#_deployment_steps">Deployment steps</a></li>
-<li><a href="#_postdeployment_steps">Postdeployment steps</a></li>
+<li><a href="#_postdeployment_steps">Postdeployment steps</a>
+<ul class="sectlevel2">
+<li><a href="#_embedding_the_thousandeyes_client_widget">Embedding the ThousandEyes Client Widget</a></li>
+</ul>
+</li>
 <li><a href="#_troubleshooting">Troubleshooting</a></li>
 <li><a href="#_feedback">Feedback</a></li>
 <li><a href="#_notices">Notices</a></li>
@@ -901,7 +905,7 @@ See the <a href="https://github.com/aws-quickstart/quickstart-repo-name" target=
 <div class="paragraph">
 <p>Remote Amazon Connect agents use the <a href="https://docs.aws.amazon.com/connect/latest/adminguide/agent-user-guide.html" target="_blank" rel="noopener">Amazon Connect Contact Control Panel (CCP)</a> to interact with customer contacts.
 In order to offer a high quality contact center engagement, remote agents should have visibility into possible call degradation at any given time while logged in via their web browser.
-The current WebRTC stack exposes packet drops and jitter while ThousandEye endpoint agents add much more granular details into the overall path visualization.
+The current WebRTC stack exposes packet drops and jitter while <a href="https://www.thousandeyes.com/product/endpoint-agents/" target="_blank" rel="noopener">ThousandEyes Endpoint Agents</a> add much more granular details into the overall path visualization.
 This solution provides the additional insight directly to the call control softphone allowing contact center remote agents to consume in real time.
 Technically, this is accomplished by embedding the relevant ThousandEyes dashboards as iFrame widgets into the contact center remote agent softphone implementation.
 This solution shows the overall ThousandEyes endpoint agent health and online status in real time which correlates directly back to the contact center remote agents availability.
@@ -939,9 +943,6 @@ AWS Cloud.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>A serverless architecture that supports a ThousandEyes Metrics Service.*</p>
-</li>
-<li>
 <p>The ThousandEyes Metrics Service is an API Gateway that is backed by AWS Lambda fucntions*</p>
 </li>
 <li>
@@ -949,16 +950,16 @@ AWS Cloud.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>[http]: Getting the http server response time to the amazon connect instance (Server Response) (using the ‘totalTime’ field).*</p>
+<p><strong>http</strong>: Getting the http server response time to the amazon connect instance (Server Response) (using the ‘totalTime’ field).*</p>
 </li>
 <li>
-<p>[network]: Displays the network latency metrics (using the ‘avgLatency’ field).*</p>
+<p><strong>network</strong>: Displays the network latency metrics (using the ‘avgLatency’ field).*</p>
 </li>
 <li>
-<p>[connection]: Issues the strength of the Wi-Fi signal (using the ‘wirelessProfile.quality’ field).*</p>
+<p><strong>connection</strong>: Issues the strength of the Wi-Fi signal (using the ‘wirelessProfile.quality’ field).*</p>
 </li>
 <li>
-<p>[agentInfo]: Name of the ThousandEyes agent you associate with the widget. The client side code saves this metric in a browser cookie so that upon a browser refresh this field is already set and will not need to be re-entered.*</p>
+<p><strong>agentInfo</strong>: Name of the ThousandEyes agent you associate with the widget. The client side code saves this metric in a browser cookie so that upon a browser refresh this field is already set and will not need to be re-entered.*</p>
 </li>
 </ul>
 </div>
@@ -966,7 +967,7 @@ AWS Cloud.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p><span class="small">* The ThousandEyes Metrics Service retrieves more information than what it is displayed within the health widget. This allows customers to easily enhance the widget and display additional metrics by simply updating the client side code.</span></p>
+<p>Note: The ThousandEyes Metrics Service retrieves more information than what it is displayed within the health widget. This allows customers to easily enhance the widget and display additional metrics by simply updating the client side code.#</p>
 </div>
 </div>
 </div>
@@ -974,20 +975,7 @@ AWS Cloud.</p>
 <h2 id="_deployment_options">Deployment options</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This Quick Start provides the following deployment options:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="http://qs_launch_permalink" target="_blank" rel="noopener">Deploy ThousandEyes' Amazon Connect Last Mile Audio into a new VPC</a>. This option builds a new AWS environment that consists of the VPC, subnets, NAT gateways, security groups, bastion hosts, and other infrastructure components. It then deploys ThousandEyes' Amazon Connect Last Mile Audio into this new VPC.</p>
-</li>
-<li>
-<p><a href="http://qs_launch_permalink" target="_blank" rel="noopener">Deploy ThousandEyes' Amazon Connect Last Mile Audio into an existing VPC</a>. This option provisions ThousandEyes' Amazon Connect Last Mile Audio in your existing AWS infrastructure.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>This Quick Start provides separate templates for these options. It also lets you configure Classless Inter-Domain Routing (CIDR) blocks, instance types, and ThousandEyes' Amazon Connect Last Mile Audio settings.</p>
+<p>This Quick Start provides the Amazon CloudFormation template that builds a serverless architecture consiting of the ThousandEyes Metrics Service that supports that supports the ThousandEyes' Amazon Connect Last Mile Audio solution.</p>
 </div>
 </div>
 </div>
@@ -1009,7 +997,7 @@ AWS Cloud.</p>
 <p>Follow the steps in this <a href="https://docs.thousandeyes.com/product-documentation/global-vantage-points/endpoint-agents/quick-guide-on-endpoint-agent#configuring-and-deploying-the-endpoint-agent">Endpoint deployment guide</a> o install the ThousandEyes Endpoint agent on any Windows or MacOS based user device.</p>
 </div>
 <div class="paragraph">
-<p>Note - for each deployed agent, note the Agent Name. You will use this when setting up the client widget below. The agent name is typically the device host name. For example: <code>hans-mac-us</code></p>
+<p>Please note the <strong>Agent Name</strong> for each deployed agent as you will use this when setting up the client widget below. The agent name is typically the device host name. For example: <code>hans-mac-us</code></p>
 </div>
 </div>
 <div class="sect2">
@@ -1021,7 +1009,7 @@ AWS Cloud.</p>
 <div class="sect2">
 <h3 id="_create_a_scheduled_test">Create a Scheduled Test</h3>
 <div class="paragraph">
-<p>First you&#8217;ll need to create a "Scheduled Test".</p>
+<p>First you&#8217;ll need to create a <strong>Scheduled Test</strong>.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1032,7 +1020,7 @@ AWS Cloud.</p>
 <p>Select Endpoint Agent -&#8594; <a href="https://app.thousandeyes.com/endpoint/test-settings/">Test Settings</a></p>
 </li>
 <li>
-<p>Select "Add New Test" and create a new "Web - HTTP Server" test</p>
+<p>Select <strong>Add New Test</strong> and create a new <strong>Web - HTTP Server</strong> test</p>
 </li>
 <li>
 <p>In the URL field enter the URL of your Amazon Connect service. For example <code><a href="https://acmebusiness.my.connect.aws" class="bare">https://acmebusiness.my.connect.aws</a></code>.</p>
@@ -1163,7 +1151,86 @@ Unless you are customizing the Quick Start templates for your own projects, don&
 <div class="sect1">
 <h2 id="_postdeployment_steps">Postdeployment steps</h2>
 <div class="sectionbody">
-
+<div class="sect2">
+<h3 id="_embedding_the_thousandeyes_client_widget">Embedding the ThousandEyes Client Widget</h3>
+<div class="paragraph">
+<p>You can use the included example client code in the <code>softphone-client</code> folder to embed a ThousandEyes metrics widget on the same webpage that you embed the Amazon Connect CCP.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The <code>softphone-client</code> folder contains an example <code>index.html</code> file and javascript that shows how to embed the ThousandEyes widget alongside the Amazon Connect CCP. Open the <code>index.html</code> file.</p>
+</li>
+<li>
+<p>Fill in the required variables:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>instanceURL</code> - the url of your Amazon Connect instance</p>
+</li>
+<li>
+<p><code>metricsURL</code> - the url of your ThousandEyes metrics API service you deployed in the above step</p>
+</li>
+<li>
+<p><code>defaultHostName</code> - the default hostname that identifies the end user machichine; this should be the same name as the computer name reported by Endpoint agent in ThousandEyes</p>
+</li>
+<li>
+<p><code>defaultTestName</code> - the name of the Endpoint scheduled test that monitors your Amazon Connect instance</p>
+</li>
+<li>
+<p><code>defaultAccountGroup</code> - the ThousandEyes Account Group name that has the Amazon Connect test</p>
+</li>
+<li>
+<p><code>refreshS</code> - the frequency to update metrics / health. Should not be less than 60 (seconds)</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Here is an example code snippet from <code>index.html</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">&lt;div id="ccpContainer1"&gt;
+   &lt;script&gt;
+      var instanceURL = "https://acmebusiness.my.connect.aws/connect/ccp#/";
+      var metricsURL = "https://jur5bq3i8a.execute-api.us-east-1.amazonaws.com/v1";
+      var defaultHostName = "hans-mac-us";
+      var defaultAccountGroup = "Endpoint Agent";
+      var defaultTestName = "AWS Connect";
+      var refreshS = 60;
+      var container = document.getElementById("ccpContainer");
+      var ccpURL = instanceURL;
+      init();
+   &lt;/script&gt;
+&lt;/div&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The above code is an example. You can copy the contents of <code>index.html</code> as well as the <code>/js/common.js</code> file to your web server. You can also upload the contents of the <code>softphone-client</code> folder to an Amazon S3 bucket to run as an example static web page to see the widget in action.</p>
+</div>
+<div class="paragraph">
+<p>You should now be able to display the ThousandEyes widget on your Amazon Connect client webpage.</p>
+</div>
+<div class="paragraph">
+<p>Here&#8217;s an example what the example widget looks like embedded below the default Amazon Connect CCP widget:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="docs/deployment_guide/images/5_HealthWidget.png" alt="HealthWidget">
+</div>
+</div>
+<div class="paragraph">
+<p>Clicking on the settings icon allows you to modify the ThousandEyes <strong>Endpoint Agent</strong> (Host Name), <strong>Account Group</strong>, and <strong>Endpoint Schedule Test</strong> (Test Name). The client side code will store these as cookies so they will not change on browser refresh.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="docs/deployment_guide/images/6_CCP-Login.png" alt="CCP-Login">
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">

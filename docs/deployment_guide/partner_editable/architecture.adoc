@@ -11,12 +11,12 @@ image::../docs/deployment_guide/images/architecture_diagram.png[Architecture]
 
 As shown in <<architecture1>>, this Quick Start sets up the following:
 
-* A serverless architecture that supports a ThousandEyes Metrics Service.*
+
 * The ThousandEyes Metrics Service is an API Gateway that is backed by AWS Lambda fucntions*
 * Each AWS Lambda function is able to query a customer's deployed ThousandEyes endpoint agent to retrieve relevant metrics. The AWS Lambda fucntions initially created with this deployment are as follows:
-** [http]: Getting the http server response time to the amazon connect instance (Server Response) (using the ‘totalTime’ field).*
-** [network]: Displays the network latency metrics (using the ‘avgLatency’ field).*
-** [connection]: Issues the strength of the Wi-Fi signal (using the ‘wirelessProfile.quality’ field).*
-** [agentInfo]: Name of the ThousandEyes agent you associate with the widget. The client side code saves this metric in a browser cookie so that upon a browser refresh this field is already set and will not need to be re-entered.*
+** *http*: Getting the http server response time to the amazon connect instance (Server Response) (using the ‘totalTime’ field).*
+** *network*: Displays the network latency metrics (using the ‘avgLatency’ field).*
+** *connection*: Issues the strength of the Wi-Fi signal (using the ‘wirelessProfile.quality’ field).*
+** *agentInfo*: Name of the ThousandEyes agent you associate with the widget. The client side code saves this metric in a browser cookie so that upon a browser refresh this field is already set and will not need to be re-entered.*
 
-[.small]#* The ThousandEyes Metrics Service retrieves more information than what it is displayed within the health widget. This allows customers to easily enhance the widget and display additional metrics by simply updating the client side code.#
+Note: The ThousandEyes Metrics Service retrieves more information than what it is displayed within the health widget. This allows customers to easily enhance the widget and display additional metrics by simply updating the client side code.#
