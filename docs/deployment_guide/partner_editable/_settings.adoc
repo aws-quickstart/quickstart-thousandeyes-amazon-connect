@@ -1,12 +1,14 @@
-:quickstart-project-name: quickstart-repo-name
+:quickstart-project-name: quickstart-thousandeyes-amazon-connect
 :quickstart-github-org: aws-quickstart
-:partner-product-name: ThousandEyes' Amazon Connect Last Mile Connectivity
-:partner-product-short-name: ThousandEyes' Amazon Connect Last Mile Connectivity
-:partner-company-name: ThousandEyes, Inc
-:doc-month: March
+:partner-product-name: Cisco ThousandEyes and Amazon Connect Last-Mile Connectivity
+:partner-product-short-name: ThousandEyes
+:partner-company-name: ThousandEyes (a part of Cisco)
+:doc-month: April
 :doc-year: 2022
 :partner-contributors: Hans Ashlock, ThousandEyes
-:aws-contributors: Todd Escalona, Amazon Web Services (AWS), Inc
+// :other-contributors: Akua Mansa, Trek10
+:aws-contributors: Todd Escalona, AWS ISV Partner Management team
+:aws-ia-contributors: Vinod Shukla, AWS Integration & Automation team
 :deployment_time: 10 minutes
 :default_deployment_region: us-east-1
 // :private_repo:

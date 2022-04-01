@@ -1,2 +1,2 @@
 
-This Quick Start provides the Amazon CloudFormation template that builds a serverless architecture consiting of the ThousandEyes Metrics Service that supports that supports the {partner-product-short-name} solution.
+This Quick Start provides one AWS CloudFormation template, which builds a serverless architecture consisting of the ThousandEyes metrics service.
