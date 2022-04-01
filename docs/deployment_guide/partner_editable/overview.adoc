@@ -1,3 +1,3 @@
 This Quick Start deploys {partner-product-name} on the AWS Cloud. If you are unfamiliar with AWS Quick Starts, refer to the https://fwd.aws/rA69w?[AWS Quick Start General Information Guide^].
 
-//TODO Vinod, FYI, I've moved this description out of this doc; we're now putting it on the landing page only.
+//TODO Vinod, FYI, I've moved the bulk of this description out of this doc; we're now describing QSs on the landing pages only. See our wiki page https://w.amazon.com/bin/view/AWS_IA/documentation/docs2_1/#HOthernotes.

@@ -11,10 +11,6 @@ image::../docs/deployment_guide/images/thousandeyes-architecture_diagram.png[Arc
 
 As shown in <<architecture1>>, this Quick Start sets up the following:
 
-* ThousandEyes metrics service, which [____]. 
-
-//TODO Vinod, What does the term "metrics service" refer to in the diagram? Each bullet needs to correspond to a specific visual element there, matching the labels.
-
 * https://aws.amazon.com/api-gateway/[Amazon API Gateway^], which [____]. 
 * AWS Lambda functions, which query the customer's deployed ThousandEyes Endpoint Agents application to display relevant end-user metrics in the client widget. This Quick Start creates the following Lambda functions:
 ** *http*: Displays the http server response time to the Amazon Connect instance.
@@ -23,11 +19,6 @@ As shown in <<architecture1>>, this Quick Start sets up the following:
 ** *agentInfo*: Name of the ThousandEyes agent that you associate with the client widget. The client-side code saves this metric in a browser cookie so that upon a browser refresh, this field is already set and does not need to be reentered.
 ** *status*: [__]
 * The ThousandEyes Amazon Connect Health widget, which [____]. You can edit the client-side code to show additional metrics in the widget.
-
-//TODO Vinod, Is the Health widget just one example? Please give some context for the Health widget we show in the diagram. 
-
-//TODO Vinod, What do we mean by "widget"? That word can be used in lots of ways, and it's not self-evident from the image. For example, is the widget the whole screenshot or just a part of it? Is this a screenshot of a cell phone? This bullet list will appear on our landing page, too. First-timers may need clues to understand what they're looking at.)
-
 * Amazon Simple Storage Service (Amazon S3), which [___].
 * An IAM role that [Lambda execution, etc. ___] .
 * Amazon Connect Streams API, which [___].
@@ -35,3 +26,5 @@ As shown in <<architecture1>>, this Quick Start sets up the following:
  * [etc. for each element we show]
 
 //TODO Vinod, Please redo this bullet list per our usual format. (You know the drill: Bullets need to mention every element in the diagram. Use the same terms verbatim in the bullets and in the diagram. Order the bullets as if giving a guided tour, starting wherever is most logical and following the arrows. See "Prepare your architecture diagram": https://w.amazon.com/bin/view/AWS_Quick_Starts/Process_for_PSAs/#HPrepareyourarchitecturediagram)
+
+//TODO Vinod, Please clarify what we mean by "widget." That word can be used in lots of ways, and it's not self-evident from the image. For example, is the widget the whole screenshot or just the bottom part of it? Is this a screenshot of a cell phone? This diagram will appear on our landing page, too; first-timers may need clues to understand what they're looking at.
