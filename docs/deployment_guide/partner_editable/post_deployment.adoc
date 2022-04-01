@@ -6,7 +6,7 @@
 
 You can use the included example client code in the `softphone-client` folder to embed a ThousandEyes metrics widget on the same webpage that you embed the Amazon Connect CCP.  
 
-//TODO Vinod, Since introduce this section by saying, "You can...," does that mean that this whole procedure is optional?
+//TODO Vinod, Since we introduce this section by saying, "You can...," does that mean that this whole procedure is optional?
 
 //TODO Vinod, Please clarify why someone might want to do this embedding.
 

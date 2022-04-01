@@ -13,7 +13,7 @@ The ThousandEyes Endpoint Agents application monitors network and app performanc
 
 . Note the agent name for each deployed agent. You will use this name when setting up the client widget. The agent name is typically the device host name, such as `hans-mac-us`.
 
-//TODO Vinod, Throughout this doc and throughout the ThousandEyes documentation, it's often confusing to me when they're talking about the application named "Endpoint Agents" (which they sometimes give an "s" and sometimes don't) vs. when they're talking about the generic things called "endpoint agents" (which should not capitalized and may or may not have an "s"). Please do a global search through to doc to confirm that I've treated these terms (application name or the generic term) correctly.
+//TODO Vinod, Throughout this doc and throughout the ThousandEyes documentation, it's often confusing to me when they're talking about the application named "Endpoint Agents" (which they sometimes give an "s" and sometimes don't) vs. when they're talking about the generic things called "endpoint agents" (which should not capitalized and may or may not have an "s"). Please do a global search through to doc to confirm that we treat these terms (application name or the generic term) correctly in each case.
 
 === Configure ThousandEyes to monitor Amazon Connect
 After you've deployed at least one ThousandEyes endpoint agent, configure ThousandEyes to monitor Amazon Connect from each agent.
