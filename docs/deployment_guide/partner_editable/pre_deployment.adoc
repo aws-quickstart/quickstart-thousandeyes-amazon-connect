@@ -2,9 +2,9 @@
 
 == Predeployment steps
 
-=== Sign up for an ThousandEyes account
+=== Sign in to your ThousandEyes account
 
-The following steps assume you have a ThousandEyes account. If you do not, you can sign up for a https://www.thousandeyes.com/signup/[15-day free trial^].
+Sign in to your ThousandEyes account. If you don't have an account, you can sign up for a https://www.thousandeyes.com/signup/[15-day free trial^].
 
 === Deploy and configure the ThousandEyes Endpoint Agents application
 The ThousandEyes Endpoint Agents application monitors network and app performance across the internet and collects data on device health. With ThousandEyes Endpoint Agents deployed on your Amazon Connect users' devices, you can identify network or device issues that may be impacting a user's experience of Amazon Connect.
@@ -52,7 +52,7 @@ image::../docs/deployment_guide/images/2_Agents.png[Agents]
 
 //TODO Vinod, The preceding statement doesn't seem to be true. Do we mean something like "You will use this name when you embed the ThousandEyes client widget after you deploy this Quick Start"?
 
-=== Enable ThousandEyes session monitorintg
+=== Enable ThousandEyes session monitoring
 
 Next, you enable session monitoring for when the user is using the Amazon Connect web client.
 
