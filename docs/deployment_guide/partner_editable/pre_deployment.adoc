@@ -2,51 +2,76 @@
 
 == Predeployment steps
 
-=== Setting Up ThousandEyes
+=== Sign up for an ThousandEyes account
 
-The following steps assume you have a ThousandEyes account. If you do not, you can sign-up for a https://www.thousandeyes.com/signup/[14-day free trial at here].
+The following steps assume you have a ThousandEyes account. If you do not, you can sign up for a https://www.thousandeyes.com/signup/[15-day free trial^].
 
-=== Deploy and Configure ThousandEyes Endpoint Agents
-First you'll want to setup your ThousandEyes monitoring by deploying ThosuandEyes Endpoint Agents. ThousandEyes Endpoint Agents monitor network and app performance across the internet as well as collect device health. With ThousandEyes Endpoint Agents installed on your Amazon Connect users' devices, you'll be able to quickly identify any network or device issues that may be impacting a user's experience of Amazon Connect.
+=== Deploy and configure the ThousandEyes Endpoint Agents application
+The ThousandEyes Endpoint Agents application monitors network and app performance across the internet and collects data on device health. With ThousandEyes Endpoint Agents deployed on your Amazon Connect users' devices, you can identify network or device issues that may be impacting a user's experience of Amazon Connect.
 
-Follow the steps in this https://docs.thousandeyes.com/product-documentation/global-vantage-points/endpoint-agents/quick-guide-on-endpoint-agent#configuring-and-deploying-the-endpoint-agent[ThousandEyes Endpoint Agents deployment guide] to install the ThousandEyes Endpoint agent on any Windows or MacOS based user device.
+. Deploy and configure the ThousandEyes Endpoint Agents application on the desired Windows or macOS-based user devices. For details, refer to https://docs.thousandeyes.com/product-documentation/global-vantage-points/endpoint-agents/quick-guide-on-endpoint-agent#configuring-and-deploying-the-endpoint-agent[Configuring and Deploying the Endpoint Agent^].
 
-Please note the *Agent Name* for each deployed agent as you will use this when setting up the client widget below. The agent name is typically the device host name. For example: `hans-mac-us`
+. Note the agent name for each deployed agent. You will use this name when setting up the client widget. The agent name is typically the device host name, such as `hans-mac-us`.
 
-=== Configure ThousandEyes to Monitor Amazon Connect
-Once you've deployed at least one ThousandEyes Endpoint Agent you'll want to configure ThousandEyes to monitor Amazon Connect from those agents.
+//TODO Vinod, Throughout this doc and throughout the ThousandEyes documentation, it's often confusing to me when they're talking about the application named "Endpoint Agents" (which they sometimes give an "s" and sometimes don't) vs. when they're talking about the generic things called "endpoint agents" (which should not capitalized and may or may not have an "s"). Please do a global search through to doc to confirm that I've treated these terms (application name or the generic term) correctly.
 
-=== Create a Scheduled Test
-First you'll need to create a *Scheduled Test*.
+=== Configure ThousandEyes to monitor Amazon Connect
+After you've deployed at least one ThousandEyes endpoint agent, configure ThousandEyes to monitor Amazon Connect from each agent.
 
-1. Log in to your ThousandEyes account at https://app.thousandeyes.com
-2. Select Endpoint Agent --> https://app.thousandeyes.com/endpoint/test-settings/[Test Settings]
-3. Select *Add New Test* and create a new *Web - HTTP Server* test
-4. In the URL field enter the URL of your Amazon Connect service. For example `https://acmebusiness.my.connect.aws`.
-5. Name the test `Amazon Connect` or something similar. You will use this name when setting up the client widget (see below)
+//TODO Vinod, What are the steps for this configuring? Is this different from the configuring we did in the previous procedure?
+
+=== Create a scheduled test
+
+//TODO Vinod, Please add a sentence or two for context: what a scheduled test is and why we create one.
+
+//TODO Vinod, Has someone other than the author walked through and verified that the steps in all the procedures in this doc are all clear, accurate, and complete? I can't test them, but they do need to be tested.
+
+. Log in to your ThousandEyes account at https://app.thousandeyes.com.
+. Select Endpoint Agent → https://app.thousandeyes.com/endpoint/test-settings/[Test Settings^].
+//TODO Vinod, In step 2, what do we actually do? The action isn't clear to me. The purpose of this link is also unclear. 
+. Choose *Add New Test*, and do the following, as shown in <<newtest>>. 
+.. Under *Type*, choose *Web* and *HTTP Server*. 
+.. Under *Test Name*, enter a name for your scheduled test, such as `AmazonConnect`. You will use this name when you set up the client widget.
+.. Under *URL*, enter the URL of your Amazon Connect service, such as `https://acmebusiness.my.connect.aws`.
 +
+[#newtest]
+.The "Add New Test" screen
+[link=images/1_AddNewTest.png]
 image::../docs/deployment_guide/images/1_AddNewTest.png[NewTest]
+
+. Under *Agents*, select the ThousandEyes endpoint agents that you installed in the previous step, as shown in <<select_agent>>.
+//TODO Vinod, I'm not sure which "previous step" this refers to. How could we rephrase for clarify?
 +
-6. In the *Agents* field select the ThousandEyes Endpoint Agents you installed in the previous step.
-+
+[#select_agent]
+.Selecting your installed agents
+[link=images/2_Agents.png]
 image::../docs/deployment_guide/images/2_Agents.png[Agents]
+
+. Choose *Add New Test* in the lower right.
+. Note the name of the account group that you created this test in. You will use this name in the following procedure.
+
+//TODO Vinod, The preceding statement doesn't seem to be true. Do we mean something like "You will use this name when you embed the ThousandEyes client widget after you deploy this Quick Start"?
+
+=== Enable ThousandEyes session monitorintg
+
+Next, you enable session monitoring for when the user is using the Amazon Connect web client.
+
+//TODO Vinod, What application are we in for step 1?
+
+. As shown in <<monitored_domain_sets>>, in the navigation panel at left, choose *Browser Session Settings*. Choose the *Monitored Domain Sets* tab. Then choose *Add New Monitored Domain Set*.
 +
-7. Select *Add New Test* in the lower right.
-8. Also note the Account Group name that you created this test in, you will use it below.
-
-=== Enable ThousandEyes Session Monitorintg
-
-Next you'll want to enable session monitoring when the user is using the Amazon Connect web client.
-
-1. Click on *Browser Session Settings* --> *Monitored Domain Sets* --> Add New Monitored Domain Set
-+
+[#monitored_domain_sets]
+.The "Monitored Domain Sets" screen
+[link=images/3_SessionMonitoring.png]
 image::../docs/deployment_guide/images/3_SessionMonitoring.png[SessionMonitoring]
-+
-2. Enter the web domain that your users browse to when using Amazon Connect. For example - if your users access Amazon Connect CCP via your Salesforce instance, you might add something like `*.salesforce.com`.
-+
-image::../docs/deployment_guide/images/4_AddMonitoredDomainSet.png[AddMonitoredDomainSet]
-+
-3. Click *Add*
-+
-ThousandEyes will now start running network monitoring to your Amazon Connect instance from each of the ThousandEyes Endpoint Agents you installed and specified. It will also collect device health metrics that can be used alongside the network monitoring to quickly troubleshoot any issues that impact Amazon Connect services when users are using the Amazon Connect CCP soft phone.
 
+. Under *Monitored Domains*, enter the web domain that your users browse to when they use Amazon Connect. For example, if your users access Amazon Connect CCP by using your Salesforce instance, you might enter something like `*.salesforce.com`, as shown in <<add_new_monitored_domain_set>>.
++
+[#add_new_monitored_domain_set]
+.Adding a new monitored domain set
+[link=images/4_AddMonitoredDomainSet.png]
+image::../docs/deployment_guide/images/4_AddMonitoredDomainSet.png[AddMonitoredDomainSet]
+
+. Choose *Add*.
++
+ThousandEyes now runs network monitoring to your Amazon Connect instance from each of the ThousandEyes endpoint agents you installed and specified. It will also collect device health metrics that can be used alongside the network monitoring to troubleshoot any issues that impact Amazon Connect services when users are using the Amazon Connect CCP softphone.
