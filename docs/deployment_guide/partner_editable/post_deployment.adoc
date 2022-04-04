@@ -5,14 +5,10 @@
 === Embed the ThousandEyes client widget
 
 You can use the included example client code in the `softphone-client` folder to embed a ThousandEyes metrics widget on the same webpage that you embed the Amazon Connect CCP.  
+Integrating ThousandEyes metrics allows you display the health of each of your end-user's connection to Amazon Connect based on ThousandEyes monitoring.
 
-//TODO Vinod, Since we introduce this section by saying, "You can...," does that mean that this whole procedure is optional?
-
-//TODO Vinod, Please clarify why someone might want to do this embedding.
-
-//TODO Vinod, Where do we need to be to do step 1?
-
-. In the `softphone-client` folder, open the `index.html` file. This is an example file and javascript that shows how to embed the ThousandEyes widget alongside the Amazon Connect CCP.
+. Clone the [GitHub repository](https://github.com/aws-quickstart/quickstart-thousandeyes-amazon-connect/)
+. In the `softphone-client` [folder](https://github.com/aws-quickstart/quickstart-thousandeyes-amazon-connect/tree/main/softphone-client), open the `index.html` file. This is an example file and javascript that shows how to embed the ThousandEyes widget alongside the Amazon Connect CCP.
 . Fill in the required variables:
 * `instanceURL` - URL of your Amazon Connect instance.
 * `metricsURL` - URL of your ThousandEyes metrics API service you deployed.
