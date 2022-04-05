@@ -5,12 +5,7 @@ For troubleshooting common Quick Start issues, refer to the https://fwd.aws/rA69
 = Resources =
 
 * https://docs.aws.amazon.com/connect/latest/adminguide/common-ccp-issues.html[Amazon Connect: Common Contact Control Panel (CCP) Issues^]
-* https://d3ugyzdarmq5tb.cloudfront.net/[Amazon Connect Endpoint Test Utility^]
 * https://docs.aws.amazon.com/connect/latest/adminguide/check-connectivity-tool.html[Amazon Connect: Use the Endpoint Test Utility^]
-* https://aws.amazon.com/blogs/contact-center/measure-latency-for-validation-testing-and-troubleshooting-in-amazon-connect/[Measure latency for validation testing and troubleshooting in Amazon Connect^] (prior to ThousandEyes integration)
-* https://blog.voicefoundry.com/blog/amazon-connect-agent-desktop-improving-agent-and-customer-experience[How-to AWS Tutorial: Amazon CCP and the Agent Desktop—Improving Agent and Customer Experience^]
 * https://github.com/amazon-connect/amazon-connect-streams/blob/master/Architecture.md[Archictecture of the Amazon Connect Streams API^]
 
-//TODO Vinod, I've pulled in the links above from Salesforce. Would it also be helpful to include the following new blog post?
-
-* https://aws.amazon.com/blogs/apn/monitoring-end-users-application-experience-on-aws-with-cisco-thousandeyes/[Monitoring End Users' Application Experience on AWS with Cisco ThousandEyes^]
+//TODO Marcia, updated the links

@@ -13,22 +13,20 @@ The ThousandEyes Endpoint Agents application monitors network and app performanc
 
 . Note the agent name for each deployed agent. You will use this name when setting up the client widget. The agent name is typically the device host name, such as `hans-mac-us`.
 
-//TODO Vinod, Throughout this doc and throughout the ThousandEyes documentation, it's often confusing to me when they're talking about the application named "Endpoint Agents" (which they sometimes give an "s" and sometimes don't) vs. when they're talking about the generic things called "endpoint agents" (which should not capitalized and may or may not have an "s"). Please do a global search through to doc to confirm that we treat these terms (application name or the generic term) correctly in each case.
+//TODO Marcia, the term should be Endpoint Agent, with the plural being Endpoint Agents. They are not talking about generic endpoint agents.
 
 === Configure ThousandEyes to monitor Amazon Connect
 After you've deployed at least one ThousandEyes endpoint agent, configure ThousandEyes to monitor Amazon Connect from each agent.
 
-//TODO Vinod, What are the steps for this configuring? Is this different from the configuring we did in the previous procedure?
+//TODO Marcia, the two subsections below: Create a scheduled test; Enable ThousandEyes session monitoring are the steps to connect.
 
 === Create a scheduled test
 
-//TODO Vinod, Please add a sentence or two for context: what a scheduled test is and why we create one.
-
-//TODO Vinod, Has someone other than the author walked through and verified that the steps in all the procedures in this doc are all clear, accurate, and complete? I can't test them, but they do need to be tested.
+//TODO Marcia, I have verified the steps below
 
 . Log in to your ThousandEyes account at https://app.thousandeyes.com.
 . Select Endpoint Agent → https://app.thousandeyes.com/endpoint/test-settings/[Test Settings^].
-//TODO Vinod, In step 2, what do we actually do? The action isn't clear to me. The purpose of this link is also unclear. 
+//TODO Marcia, we are navigating to Test Settings section of the Endpoint Agents in the ThousandEyes console
 . Choose *Add New Test*, and do the following, as shown in <<newtest>>. 
 .. Under *Type*, choose *Web* and *HTTP Server*. 
 .. Under *Test Name*, enter a name for your scheduled test, such as `AmazonConnect`. You will use this name when you set up the client widget.
@@ -39,8 +37,7 @@ After you've deployed at least one ThousandEyes endpoint agent, configure Thousa
 [link=images/1_AddNewTest.png]
 image::../docs/deployment_guide/images/1_AddNewTest.png[NewTest]
 
-. Under *Agents*, select the ThousandEyes endpoint agents that you installed in the previous step, as shown in <<select_agent>>.
-//TODO Vinod, I'm not sure which "previous step" this refers to. How could we rephrase for clarify?
+. Under *Agents*, select the ThousandEyes endpoint agents that you installed in the **Deploy and configure the ThousandEyes Endpoint Agents application** section, as shown in <<select_agent>>.
 +
 [#select_agent]
 .Selecting your installed agents
@@ -48,15 +45,12 @@ image::../docs/deployment_guide/images/1_AddNewTest.png[NewTest]
 image::../docs/deployment_guide/images/2_Agents.png[Agents]
 
 . Choose *Add New Test* in the lower right.
-. Note the name of the account group that you created this test in. You will use this name in the following procedure.
-
-//TODO Vinod, The preceding statement doesn't seem to be true. Do we mean something like "You will use this name when you embed the ThousandEyes client widget after you deploy this Quick Start"?
 
 === Enable ThousandEyes session monitoring
 
 Next, you enable session monitoring for when the user is using the Amazon Connect web client.
 
-//TODO Vinod, What application are we in for step 1?
+//TODO Marcia, this is the ThousandEyes console, Endpoint Agents section.
 
 . As shown in <<monitored_domain_sets>>, in the navigation panel at left, choose *Browser Session Settings*. Choose the *Monitored Domain Sets* tab. Then choose *Add New Monitored Domain Set*.
 +
