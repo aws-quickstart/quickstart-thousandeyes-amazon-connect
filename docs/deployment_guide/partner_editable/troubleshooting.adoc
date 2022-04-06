@@ -6,6 +6,4 @@ For troubleshooting common Quick Start issues, refer to the https://fwd.aws/rA69
 
 * https://docs.aws.amazon.com/connect/latest/adminguide/common-ccp-issues.html[Amazon Connect: Common Contact Control Panel (CCP) Issues^]
 * https://docs.aws.amazon.com/connect/latest/adminguide/check-connectivity-tool.html[Amazon Connect: Use the Endpoint Test Utility^]
-* https://github.com/amazon-connect/amazon-connect-streams/blob/master/Architecture.md[Archictecture of the Amazon Connect Streams API^]
-
-//TODO Marcia, updated the links
+* https://github.com/amazon-connect/amazon-connect-streams/blob/master/Architecture.md[Architecture of the Amazon Connect Streams API^]

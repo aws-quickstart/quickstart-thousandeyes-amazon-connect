@@ -1,6 +1,6 @@
 :quickstart-project-name: quickstart-thousandeyes-amazon-connect
 :quickstart-github-org: aws-quickstart
-:partner-product-name: Cisco ThousandEyes and Amazon Connect Last-Mile Connectivity
+:partner-product-name: Cisco ThousandEyes Last-Mile Connectivity
 :partner-product-short-name: ThousandEyes
 :partner-company-name: ThousandEyes (a part of Cisco)
 :doc-month: April
