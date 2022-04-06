@@ -1,25 +1,20 @@
 :xrefstyle: short
 
-Deploying this Quick Start with default parameters builds the following {partner-product-short-name} serverless environment in the
+Deploying this Quick Start with default parameters builds the following {partner-product-short-name} environment in the
 AWS Cloud.
 
 // Replace this example diagram with your own. Follow our wiki guidelines: https://w.amazon.com/bin/view/AWS_Quick_Starts/Process_for_PSAs/#HPrepareyourarchitecturediagram. Upload your source PowerPoint file to the GitHub {deployment name}/docs/images/ directory in its repository.
 
 [#architecture1]
 .Quick Start architecture for {partner-product-short-name} on AWS
-image::../docs/deployment_guide/images/thousandeyes-architecture_diagram.png[Architecture]
+image::../docs/deployment_guide/images/thousandeyes-architecture_diagram.png[Architecture, 85%]
 
 As shown in <<architecture1>>, this Quick Start sets up the following:
 
-* https://aws.amazon.com/api-gateway/[Amazon API Gateway^], which sets up the ThousandEyes Metrics Service.
-* AWS Lambda functions, which query the customer's deployed ThousandEyes Endpoint Agents application to display relevant end-user metrics in the client widget. This Quick Start creates the following Lambda functions:
-** *http*: Displays the http server response time to the Amazon Connect instance.
-** *connection*: Displays the strength of the Wi-Fi signal.
-** *network*: Displays the network-latency metrics.
-** *agentInfo*: Name of the ThousandEyes agent that you associate with the client widget. The client-side code saves this metric in a browser cookie so that upon a browser refresh, this field is already set and does not need to be reentered.
-** *status*: Verifies that the ThousandEyes API is running.
-* The ThousandEyes Amazon Connect Health widget, which can be integrated with the [Amazon Contact Control Panel (CCP) softphone](https://docs.aws.amazon.com/connect/latest/adminguide/agent-user-guide.html). You can edit the client-side code to show additional metrics in the widget.
-* An IAM role that is used for execution of the Lambda functions described above.
-* Amazon Connect Contact Control Panel (CCP) softphone client, which interacts with Amazon Connect using Amazon Connect Streams API.
-
-//TODO Marcia, "widget" is the bottom part of the Amazon CCP softphone client app that has been augmented to additionally display ThousandEyes metrics
+* https://aws.amazon.com/pm/connect/[Amazon Connect^], which communicates with the https://docs.aws.amazon.com/connect/latest/adminguide/agent-user-guide.html[Amazon Connect Contact Control Panel (CCP)^] softphone client app using the https://github.com/amazon-connect/amazon-connect-streams[Amazon Connect Streams API^]. 
+** The Amazon Connect Health widget is integrated into the CCP. This widget displays end-user metrics from the ThousandEyes https://www.thousandeyes.com/resources/getting-started-endpoint-agent-tutorial[Endpoint Agent^] software. You can edit the client-side code to show additional metrics in the widget.
+** The Endpoint Agent software comprises a browser plugin and a lightweight system service installed on end-user Windows or macOS laptops or desktops. 
+* Amazon API Gateway, which sets up the ThousandEyes metrics service.
+* AWS Lambda functions, which query the customer's deployed Endpoint Agent software. Among other things, these functions display the response time of the server (Amazon Connect instance), the strength of the Wi-Fi signal, and the network latency.
+* An AWS Identity and Access Management (IAM) role for the Lambda functions.
+* Amazon Simple Storage Service (S3) to store the metrics.
